@@ -1,0 +1,9 @@
+DEFINITION MODULE OLoadDebug;
+
+PROCEDURE NewTrapStub(adr:LONGINT);
+PROCEDURE ResetTrapStub;
+
+PROCEDURE ToModula;
+PROCEDURE ToOberon;
+
+END OLoadDebug.

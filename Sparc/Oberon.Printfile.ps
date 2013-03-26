@@ -1,0 +1,818 @@
+%!PS-Adobe- minimal conforming
+%%Creator: Oberon
+%
+% J. Templ, 1990, 1991, 1992
+% J. Supcik, 1994
+%
+% m  moveto  x y -> -
+% s  String  s -> -
+% l  Line  x y w h -> -
+% x  XLine  x y dx dy -> -
+% c  scaled Circle  x y a b -> -
+% b  shaded box  x y w h col -> -
+% i  pattern image  x y w h mode  -> -
+% p  Page  n -> -
+% f  font setting  fntname -> -
+% z Bezier cubic section  x1 y1 x2 y2 x3 y3 x0 y0 -> -
+% u UseColor  r g b -> -
+
+/bdef {bind def} bind def
+
+/m {moveto} bdef
+
+/s {show} bdef
+
+/u {setrgbcolor} bdef
+
+/l {
+  /ph exch def
+  /pw exch def
+  newpath
+  moveto
+  pw 0 rlineto
+  0 ph rlineto
+  pw neg 0 rlineto
+  closepath
+  fill
+} bdef
+
+/x {
+  /dy exch def
+  /dx exch def
+  newpath
+  moveto
+  dx dy rlineto
+  0 setlinewidth
+  stroke
+} bdef
+
+/c {
+  /pb exch def
+  /pa exch def
+  newpath
+  gsave
+  translate
+  1 pb pa div scale
+  0 0 pa 0 360 arc
+  0 setlinewidth
+  stroke
+  grestore
+} bdef
+
+/shade {
+  gsave
+  col 0 eq {1 setgray} if
+  col 1 eq {0.99 setgray} if
+  col 2 eq {0.9 setgray} if
+  col 3 eq {0.65 setgray} if
+  col 4 eq {0.35 setgray} if
+  col 5 eq {0 setgray} if
+  fill
+  grestore
+} bdef
+
+/max {
+  /h1 exch def
+  /h2 exch def
+  h1 h2 lt {h2} {h1} ifelse
+} bdef
+
+/texture {
+  gsave
+  clip
+  newpath
+  col 6 eq
+    { px 20 idiv 20 mul py ph add 20 idiv 20 mul moveto
+      /maxwh pw ph max 20 add def
+      maxwh 10 idiv 1 add
+        { maxwh maxwh rlineto
+          maxwh neg dup 20 sub rmoveto
+        } repeat
+    } if
+  col 7 eq
+    { px 20 idiv 20 mul py 20 idiv 20 mul moveto
+      /maxwh pw ph max 20 add def
+      maxwh 10 idiv 1 add
+        { maxwh neg maxwh rlineto
+          maxwh 20 add maxwh neg rmoveto
+        } repeat
+    } if
+  col 8 eq
+    { px 15 idiv 15 mul py 15 idiv 15 mul moveto
+      /ph ph 25 add def
+      pw 15 idiv 1 add
+        { 0 ph rlineto
+          15 ph neg rmoveto
+        } repeat
+   } if
+  col 9 eq
+    { px 15 idiv 15 mul py 15 idiv 15 mul moveto
+      /pw pw 15 add def
+      ph 15 idiv 1 add
+       { pw 0 rlineto
+          pw neg 15 rmoveto
+        } repeat
+   } if
+  1 setlinewidth
+  stroke
+  grestore
+} bdef
+
+/b {
+  /col exch def
+  /ph exch def
+  /pw exch def
+  /py exch def
+  /px exch def
+  newpath
+  px py moveto
+  pw 0 rlineto
+  0 ph rlineto
+  pw neg 0 rlineto
+  closepath
+  col 6 lt {shade} {texture} ifelse
+} bdef
+
+/i { % pattern image follows procedure i immediately
+  /mode exch def
+  /ph exch def
+  /pw exch def
+  /py exch def
+  /px exch def
+  /picstr 256 string def
+  /nofbytes pw 7 add 8 idiv ph mul def
+  gsave
+  px py translate
+  pw mode 1 add mul ph mode 1 add mul scale
+  pw ph 1 [pw 0 0 ph 0 0]
+    {nofbytes 256 ge
+      { currentfile picstr readhexstring pop
+        /nofbytes nofbytes 256 sub def }
+      { /picstr nofbytes string def
+        currentfile picstr readhexstring pop
+        /nofbytes 0 def
+      } ifelse
+    } image
+  grestore
+} bdef
+
+/f {findfont setfont} bdef
+
+/z {newpath moveto curveto 0 setlinewidth stroke } bdef    % Bezier cubic section
+
+/p {/#copies exch def showpage restore save} bdef    % show page
+
+/GlobalBuildGlyph {
+    1 index /CharData get exch
+    2 copy known not {pop /.notdef} if get
+    dup 0 get 0
+    2 index 1 4 getinterval aload pop
+    setcachedevice
+    dup 5 2 getinterval aload pop true
+    5 4 roll /imageMaskMatrix get
+    dup 4 6 index 7 get put
+    dup 5 6 index 8 get put
+    5 4 roll 9 1 getinterval cvx
+    imagemask
+} def
+
+/GlobalBuildChar {
+    1 index /Encoding get exch get
+    1 index /BuildGlyph get exec
+} def
+
+/OberonSmallEncoding {
+    dup 128 /Adieresis put dup 129 /Odieresis put dup 130 /Udieresis put dup 131 /adieresis put
+    dup 132 /odieresis put dup 133 /udieresis put dup 134 /acircumflex put dup 135 /ecircumflex put
+    dup 136 /icircumflex put dup 137 /oicircumflex put dup 138 /uicircumflex put dup 139 /agrave put
+    dup 140 /egrave put dup 141 /igrave put dup 142 /ograve put dup 143 /ugrave put dup 144 /eacute put
+    dup 145 /edieresis put dup 146 /idieresis put dup 147 /ccedilla put dup 148 /aacute put
+    dup 149 /ntilde put dup 155 /endash put dup 159 /hyphen put dup 171 /germandbls put
+} bdef
+
+/OberonEncoding {
+  dup 32 /space put dup 33 /exclam put dup 34 /quotedbl put dup 35 /numbersign put 
+  dup 36 /dollar put dup 37 /percent put dup 38 /ampersand put dup 39 /quotesingle put dup 40 /parenleft put 
+  dup 41 /parenright put dup 42 /asterisk put dup 43 /plus put dup 44 /comma put dup 45 /minus put 
+  dup 46 /period put dup 47 /slash put dup 48 /zero put dup 49 /one put dup 50 /two put dup 51 /three put 
+  dup 52 /four put dup 53 /five put dup 54 /six put dup 55 /seven put dup 56 /eight put dup 57 /nine put 
+  dup 58 /colon put dup 59 /semicolon put dup 60 /less put dup 61 /equal put dup 62 /greater put 
+  dup 63 /question put dup 64 /at put dup 65 /A put dup 66 /B put dup 67 /C put dup 68 /D put dup 69 /E put 
+  dup 70 /F put dup 71 /G put dup 72 /H put dup 73 /I put dup 74 /J put dup 75 /K put dup 76 /L put 
+  dup 77 /M put dup 78 /N put dup 79 /O put dup 80 /P put dup 81 /Q put dup 82 /R put dup 83 /S put 
+  dup 84 /T put dup 85 /U put dup 86 /V put dup 87 /W put dup 88 /X put dup 89 /Y put dup 90 /Z put 
+  dup 91 /bracketleft put dup 92 /backslash put dup 93 /bracketright put dup 94 /arrowup put dup 95 /underscore put 
+  dup 96 /grave put dup 97 /a put dup 98 /b put dup 99 /c put dup 100 /d put dup 101 /e put dup 102 /f put 
+  dup 103 /g put dup 104 /h put dup 105 /i put dup 106 /j put dup 107 /k put dup 108 /l put dup 109 /m put 
+  dup 110 /n put dup 111 /o put dup 112 /p put dup 113 /q put dup 114 /r put dup 115 /s put dup 116 /t put 
+  dup 117 /u put dup 118 /v put dup 119 /w put dup 120 /x put dup 121 /y put dup 122 /z put dup 123 /braceleft put 
+  dup 124 /bar put dup 125 /braceright put dup 126 /tilde put dup 128 /Adieresis put dup 129 /Odieresis put 
+  dup 130 /Udieresis put dup 131 /adieresis put dup 132 /odieresis put dup 133 /udieresis put dup 134 /acircumflex put 
+  dup 135 /ecircumflex put dup 136 /icircumflex put dup 137 /oicircumflex put dup 138 /uicircumflex put 
+  dup 139 /agrave put dup 140 /egrave put dup 141 /igrave put dup 142 /ograve put dup 143 /ugrave put 
+  dup 144 /eacute put dup 145 /edieresis put dup 146 /idieresis put dup 147 /ccedilla put dup 148 /aacute put 
+  dup 149 /ntilde put dup 155 /endash put dup 159 /hyphen put dup 171 /germandbls put
+} bdef
+
+/DefineMapFont {
+    dup FontMapDict exch get
+    aload pop exch
+    findfont
+    dup length dict begin
+        {1 index /FID ne {def} {pop pop} ifelse} forall
+        FontMatrix dup length array copy
+        dup dup 0 get 3 index mul 0 exch put
+        dup dup 3 get 3 index mul 3 exch put
+        /FontMatrix exch def pop
+        Encoding dup length array copy OberonSmallEncoding /Encoding exch def
+        currentdict
+    end
+    definefont pop
+} bdef
+
+/DefineSMapFont { % Syntax encoding
+    dup FontMapDict exch get
+    aload pop exch
+    findfont
+    dup length dict begin
+        {1 index /FID ne {def} {pop pop} ifelse} forall
+        FontMatrix dup length array copy
+        dup dup 0 get 3 index mul 0 exch put
+        dup dup 3 get 3 index mul 3 exch put
+        /FontMatrix exch def pop
+        Encoding dup length array copy OberonSmallEncoding
+  	  dup 45 /endash put dup 95 /minus put /Encoding exch def
+        currentdict
+    end
+    definefont pop
+} bdef
+
+/FontMapDict 64 dict def
+FontMapDict begin
+    /Syntax8.Scn.Fnt [/Helvetica 30] def  /Syntax8i.Scn.Fnt [/Helvetica-Oblique 30] def
+    /Syntax8b.Scn.Fnt [/Helvetica-Bold 30] def  /Syntax8m.Scn.Fnt [/Helvetica-Bold 30] def
+    /Syntax9m.Scn.Fnt [/Helvetica-Bold 33] def  /Syntax10.Scn.Fnt  [/Helvetica 37] def
+    /Syntax10i.Scn.Fnt [/Helvetica-Oblique 37] def  /Syntax10b.Scn.Fnt [/Helvetica-Bold 37] def
+    /Syntax10m.Scn.Fnt [/Helvetica-Bold 37] def  /Syntax10w.Scn.Fnt [/Helvetica 37] def
+    /Syntax12.Scn.Fnt [/Helvetica 44] def  /Syntax12i.Scn.Fnt [/Helvetica-Oblique 44] def
+    /Syntax12b.Scn.Fnt [/Helvetica-Bold 44] def  /Syntax12m.Scn.Fnt [/Helvetica-Bold 44] def
+    /Syntax14.Scn.Fnt [/Helvetica 50] def  /Syntax14i.Scn.Fnt [/Helvetica-Oblique 50] def
+    /Syntax14b.Scn.Fnt [/Helvetica-Bold 50] def  /Syntax14m.Scn.Fnt [/Helvetica-Bold 50] def
+    /Syntax16.Scn.Fnt [/Helvetica 59] def  /Syntax16i.Scn.Fnt [/Helvetica-Oblique 59] def
+    /Syntax16b.Scn.Fnt [/Helvetica-Bold 59] def  /Syntax16m.Scn.Fnt [/Helvetica-Bold 59] def
+    /Syntax20.Scn.Fnt [/Helvetica 74] def  /Syntax20i.Scn.Fnt [/Helvetica-Oblique 74] def
+    /Syntax20b.Scn.Fnt [/Helvetica-Bold 74] def  /Syntax20m.Scn.Fnt [/Helvetica-Bold 74] def
+    /Syntax24.Scn.Fnt [/Helvetica 88] def  /Syntax24i.Scn.Fnt [/Helvetica-Oblique 88] def
+    /Syntax24b.Scn.Fnt [/Helvetica-Bold 88] def  /Syntax24m.Scn.Fnt [/Helvetica-Bold 88] def
+    /Gacha10l [/Courier 30] def  /Courier8.Scn.Fnt [/Courier 30] def
+    /Courier10.Scn.Fnt [/Courier 37] def  /Courier12.Scn.Fnt [/Courier-Bold 44] def
+    /Times8.Scn.Fnt [/Times-Roman 32] def  /Times8i.Scn.Fnt [/Times-Italic 32] def
+    /Times8b.Scn.Fnt [/Times-Bold 32] def  /Times10.Scn.Fnt [/Times-Roman 40] def
+    /Times10i.Scn.Fnt [/Times-Italic 40] def  /Times10b.Scn.Fnt [/Times-Bold 40] def
+    /Times12.Scn.Fnt [/Times-Roman 48] def  /Times12i.Scn.Fnt [/Times-Italic 48] def
+    /Times12b.Scn.Fnt [/Times-Bold 48] def  /Times14.Scn.Fnt [/Times-Roman 56] def
+    /Times14i.Scn.Fnt [/Times-Italic 56] def  /Times14b.Scn.Fnt [/Times-Bold 56] def
+    /Times16.Scn.Fnt [/Times-Roman 64] def  /Times16i.Scn.Fnt [/Times-Italic 64] def
+    /Times16b.Scn.Fnt [/Times-Bold 64] def  /Times20.Scn.Fnt [/Times-Roman 80] def
+    /Times20i.Scn.Fnt [/Times-Italic 80] def  /Times20b.Scn.Fnt[ /Times-Bold 80] def
+    /Times24.Scn.Fnt [/Times-Roman 96] def  /Times24i.Scn.Fnt [/Times-Italic 96] def
+    /Times24b.Scn.Fnt [/Times-Bold 96] def
+end
+
+/OberonInit {
+  .24 .24 scale
+  % 152 18 translate    % if you want Pluto-like printer origin...
+  % 0 -88 translate       % for US size paper
+  0 -70 translate       % for US size paper, after Aug 11, 1999
+  (Syntax10.Scn.Fnt) f
+  0 setgray
+  save
+} bdef
+
+% Conversion of the Oberon font Syntax10.Scn.Fnt
+% abstraction: 0, family: S, variant: 32
+% height: 42
+
+9 dict begin
+
+/FontType 3 def
+/FontMatrix [ 72 300 div  .24 div 0 0 72 300 div  .24 div 0 0] def
+/FontBBox [-2 -10 38 31] def
+
+/Encoding 256 array def
+0 1 255 {Encoding exch /.notdef put} for
+Encoding OberonEncoding /Encoding exch def
+
+/CharData 122 dict def
+CharData begin
+/.notdef [0 0 0 0 0 1 1 0 0
+<>] bdef
+/space [11 0 0 0 0 1 1 0 0
+<>] bdef
+/parenleft [15 3 -7 12 28 9 35 -3 7
+<0100038007000E001C001C0038003800700070007000E000E000E000E000E000
+ E000E000E000E000E000E000E000E000700070007000380038001C001C000E00
+ 070003800100>] bdef
+/parenright [15 2 -7 11 28 9 35 -2 7
+<4000E000700038001C001C000E000E0007000700070003800380038003800380
+ 038003800380038003800380038003800700070007000E000E001C001C003800
+ 7000E0004000>] bdef
+/asterisk [21 1 0 20 19 19 19 -1 0
+<0C06000C07000E0E00060C0003180003180001B00000A000F84000FFFFE00043
+ E000A00001B000031800031800060C000E0E001C07000C0600>] bdef
+/period [7 2 0 5 3 3 3 -2 0
+<E0E0E0>] bdef
+/zero [20 1 0 18 25 17 25 -1 0
+<01C0000FF8000E3800380E00380E00700700700700600300F00780600300E003
+ 80E00380E00380E00380E00380600300F00780600300700700700700380E0038
+ 0E000E38000FF80001C000>] bdef
+/one [20 1 0 13 25 12 25 -1 0
+<0070007000700070007000700070007000700070007000700070007000700070
+ 4070E07078701C300E30033001B000700030>] bdef
+/two [20 1 0 17 25 16 25 -1 0
+<FFFF8FFF4000300018000E000700038001C000E0007000380038001C001C000E
+ 000E000E000E000E001C001C60787FF00FC0>] bdef
+/three [20 2 0 16 25 14 25 -2 0
+<1F80FFE0E0F000380038001C001C001C001C0038003800F07FC07E0001C00070
+ 00380018001C001C001C0038E078FFF01FC0>] bdef
+/four [20 0 0 20 25 20 25 0 0
+<001C00001C00001C00001C00001C00001C00001C00001C00FFFFF08FFFF0401C
+ 00601C00301C00181C00181C000C1C00061C00030C00019C00018C0000CC0000
+ 6C00002C00001C00000C00>] bdef
+/five [20 3 0 17 25 14 25 -3 0
+<7A007F8001E0007000380038001C001C001C001C001C0038003800F0FFE09680
+ 40006000700030003000380018001FFC1FFC>] bdef
+/six [20 2 0 18 25 16 25 -2 0
+<07C01FF03C3C300C70066006E003E007E003D007D006C80EC63CE3F860A06000
+ 7000300038001C000E00070003C000FE003E>] bdef
+/seven [20 1 0 18 25 17 25 -1 0
+<1000007800003800001C00001E00000E000007000007000003800003800001C0
+ 0000C00000E000007000007000003800003800001C00000C00000E0000070000
+ 0300000180FFFF80FFFF00>] bdef
+/eight [20 2 0 18 25 16 25 -2 0
+<07E01FF8781E700EE007C007E003C0076006700E383C0EF001800F703C1C700E
+ 6006E003C007E003E007700E781E1FF807E0>] bdef
+/nine [20 2 0 18 25 16 25 -2 0
+<7C007F0003C000E000700038001C000C000E000605061FC73C637013600BE00B
+ C007E007C0076006600E300C3C3C0FF803E0>] bdef
+/A [25 1 0 24 25 23 25 -1 0
+<200008F0001E70001C70001C3800383800381800381C00701C00700FFFE00FFF
+ E00600E00701C00701C003018003838001830001830000C70000C60000C60000
+ 6C00006C00003800003800>] bdef
+/B [23 4 0 20 25 16 25 -4 0
+<FFC0FFF0E03CE00EE00EE007E007E007E007E00EE00EE03CFFF0FFC0E070E018
+ E01CE00CE00EE00EE01EE01CE07CFFF8FFE0>] bdef
+/C [22 2 0 20 25 18 25 -2 0
+<01FE0007FFC00F81C01E00003C0000380000780000700000F00000E00000E000
+ 00E00000E00000E00000E000007000007000007000003800003800001C00000F
+ 000007C00001FFC0007FC0>] bdef
+/D [28 4 0 25 25 21 25 -4 0
+<FFF000FFFE00E03F80E007C0E001E0E000E0E000F0E00070E00070E00078E000
+ 38E00038E00038E00038E00038E00078E00070E00070E000F0E000E0E001E0E0
+ 07C0E03F80FFFE00FFF000>] bdef
+/E [20 4 0 18 25 14 25 -4 0
+<FFFCFFFCE000E000E000E000E000E000E000E000E000E000FFF8FFF8E000E000
+ E000E000E000E000E000E000E000FFF8FFF8>] bdef
+/F [19 4 0 17 25 13 25 -4 0
+<E000E000E000E000E000E000E000E000E000E000E000E000FFF8FFF8E000E000
+ E000E000E000E000E000E000E000FFF8FFF8>] bdef
+/G [25 2 0 21 25 19 25 -2 0
+<01FF8007FFE00F80E01E00E03C00E03800E07800E07000E0F000E0E000E0E000
+ E0E000E0E000E0E00000E000007000007000007000003800003800001C00000F
+ 000007C00001FFC0007FC0>] bdef
+/H [27 4 0 22 25 18 25 -4 0
+<E001C0E001C0E001C0E001C0E001C0E001C0E001C0E001C0E001C0E001C0E001
+ C0E001C0FFFFC0FFFFC0E001C0E001C0E001C0E001C0E001C0E001C0E001C0E0
+ 01C0E001C0E001C0E001C0>] bdef
+/I [12 4 0 7 25 3 25 -4 0
+<E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0>] bdef
+/K [24 4 0 22 25 18 25 -4 0
+<E00180E003C0E00780E00F00E01E00E03C00E07800E0F000E1E000E3C000E780
+ 00EF0000EC0000E70000E38000E1C000E0E000E07000E03800E01C00E00E00E0
+ 0700E00380E001C0E00080>] bdef
+/L [17 4 0 17 25 13 25 -4 0
+<FFF8FFF8E000E000E000E000E000E000E000E000E000E000E000E000E000E000
+ E000E000E000E000E000E000E000E000E000>] bdef
+/M [37 2 0 35 25 33 25 -2 0
+<E001C00380E001C00380E0036003807003600700700360070070077007007006
+ 3007003806300E00380E380E00380E380E00180C180C001C1C1C1C001C1C1C1C
+ 001C1C0C1C000C180C18000E380E38000E380E38000630063000063006300007
+ 7007700003600360000360036000036003600001C001C00001C001C000>] bdef
+/N [28 4 0 24 25 20 25 -4 0
+<E000C0E000F0E001B0E001B0E00330E00730E00630C00E70E01E30E01C70E038
+ 30C07870E0F070E0E030C1C070E3C070C78070E70030C60070CE0070CC0070D8
+ 0070D80070F00070300070>] bdef
+/O [28 2 0 25 25 23 25 -2 0
+<00BA0003FF800F83E00E00E03C007838003870001C70001CE0001E70000CE000
+ 0EE0000EE0000EE0000EE0000E70001CE0000E70001C70001C3800383C00780E
+ 00E00F83E003FF8000BA00>] bdef
+/P [20 4 0 18 25 14 25 -4 0
+<E000E000E000E000E000E000E000E000E000E000E000FF80FFE0E0F0E038E038
+ E01CE01CE01CE01CE03CE038E0F8FFF0FF80>] bdef
+/R [24 4 0 21 25 17 25 -4 0
+<E00600E00780E00F00E01E00E01C00E03C00E07800E07000E0E000E1E000E3C0
+ 00FF0000FFE000E07800E01C00E01C00E00E00E00E00E00E00E00E00E01E00E0
+ 1C00E07C00FFF800FFE000>] bdef
+/S [19 2 0 17 25 15 25 -2 0
+<1FC0FFF0E07C001C001E000E000E000E001E001C007C03F80FE03F807C007000
+ F000E000E000E000F00070007C0E1FFE07F0>] bdef
+/T [19 0 0 19 25 19 25 0 0
+<00E00000E00000E00000E00000E00000E00000E00000E00000E00000E00000E0
+ 0000E00000E00000E00000E00000E00000E00000E00000E00000E00000E00000
+ E00000E000FFFFE0FFFFE0>] bdef
+/U [27 4 0 23 25 19 25 -4 0
+<03F8000FFE003E0F803803807001C07001C07001C0E000E0E000E0E000E0E000
+ E0E000E0E000E0E000E0E000E0E000E0E000E0E000E0E000E0E000E0E000E0E0
+ 00E0E000E0E000E0E000E0>] bdef
+/V [23 1 0 22 25 21 25 -1 0
+<00700000700000D80000D80000D80001CC00018C00038C000386000306000707
+ 000703000E03000E03800E01801C01C01C01C03C00C03800E03800E070007070
+ 0070F00078E00038200020>] bdef
+/X [25 3 0 22 25 19 25 -3 0
+<6000C0F001E07001C03803C01807801C07000E0E00061C00071C0003380001B0
+ 0000F00000400001E00001B000039800071C00070C000E0E001C07003C030078
+ 03807001C0F001E06000C0>] bdef
+/Y [21 1 0 20 25 19 25 -1 0
+<00E00000E00000E00000E00000E00000E00000E00000E00000E00000E00000E0
+ 0000E00001F00001B000039800071800070C000E0E000E06001C07003C038038
+ 03807801C0F001E03000C0>] bdef
+/backslash [20 -1 -2 17 27 18 29 1 2
+<0000C00000C0000180000380000300000700000600000E00001C000018000038
+ 0000300000700000E00000C00001C0000180000380000700000600000E00000C
+ 00001C0000380000300000700000600000C00000C00000>] bdef
+/a [19 2 0 17 19 15 19 -2 0
+<3E0E7F9EF098E058E038E038E038703878381E1803F800380038003860387038
+ 3C700FF003C0>] bdef
+/b [22 3 0 19 28 16 28 -3 0
+<1FC0FFF0F878E01CE00EE00EE007E007E007E007E007E007E007D00FC80EEC1E
+ E77CE7F8E1E0E000E000E000E000E000E000E000E000E000>] bdef
+/c [16 2 0 15 19 13 19 -2 0
+<07C01FF03C3078007000F000E000E000E000E000E000E000F000700078003800
+ 1E000FF803F8>] bdef
+/d [22 2 0 18 28 16 28 -2 0
+<07871FE73EE778377013F00BE007E007E007E007E007E007E007700770073807
+ 1E1F0FFB03E7000700070007000700070007000700070007>] bdef
+/e [19 2 0 17 19 15 19 -2 0
+<07C01FF03C3C700C7000E000E000E000E000E000FFFEEFF66006700E300C381C
+ 1C380FF003C0>] bdef
+/f [11 0 0 11 28 11 28 0 0
+<1C001C001C001C001C001C001C001C001C001C001C001C001C001C001C001C00
+ FFE0FFE01C001C001C001C001C000E000E000F0007E001E0>] bdef
+/g [19 1 -9 18 19 17 28 -1 9
+<0FC0007FF000703C00E00E00C00600C00700600700600700300E000C3E0003F8
+ 001FC0007C00007000003000000C000003C0000FF0001C3800181800380C0030
+ 1C00380C00301C001818001C33800FFF8003C000>] bdef
+/h [22 3 0 18 28 15 28 -3 0
+<E00EE00EE00EE00EE00EE00EE00EE00EE00EE00EE00EE00EE00ED00EC81EEC0E
+ E73CE3FCE0F0E000E000E000E000E000E000E000E000E000>] bdef
+/i [10 3 0 6 26 3 26 -3 0
+<E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E000000000E0E0E0>] bdef
+/j [10 -2 -10 6 26 8 36 2 10
+<F0FC1E0E0F070707070707070707070707070707070707070707070707000000
+ 00070707>] bdef
+/k [19 3 0 18 28 15 28 -3 0
+<E00CE01EE03CE078E0F0E1E0E3C0E780EF00FE00EC00E700E380E1C0E0E0E070
+ E038E01CE008E000E000E000E000E000E000E000E000E000>] bdef
+/l [10 3 0 6 28 3 28 -3 0
+<E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0>] bdef
+/m [34 3 0 30 19 27 19 -3 0
+<E00E00E0E00E00E0E00E00E0E00E00E0E00E00E0E00E00E0E00E00E0E00E00E0
+ E00E00E0E00E00E0E00E00E0E00E00E0E00E00E0D00D00E0C81C81E0EC0CC0E0
+ E73C73C0E3F83FC0E0F00F00>] bdef
+/n [22 3 0 18 19 15 19 -3 0
+<E00EE00EE00EE00EE00EE00EE00EE00EE00EE00EE00EE00EE00ED00EC81EEC0E
+ E73CE3FCE0F0>] bdef
+/o [23 2 0 20 19 18 19 -2 0
+<03F0000FFC001E1E00380700700380700380E001C0E001C0E001C0E001C0E001
+ C0E001C0E001C07003807003803807001E1E000FFC0003F000>] bdef
+/p [22 3 -9 19 19 16 28 -3 9
+<E000E000E000E000E000E000E000E000E000E7C0DFF0F878E01CE00EE00EE007
+ E007E007E007E007E007E007D00FC80EEC1EE77CE7F8E1E0>] bdef
+/r [13 3 0 13 19 10 19 -3 0
+<E000E000E000E000E000E000E000E000E000E000E000E000E000D000C800CE00
+ E7C0E7C0E1C0>] bdef
+/s [17 2 0 14 19 12 19 -2 0
+<3F00FFC0E1E000E000700070007000E007E03FC07E007000E000E000E0007000
+ 78703FF00FC0>] bdef
+/t [12 0 0 12 24 12 24 0 0
+<07800FE01E701C201C001C001C001C001C001C001C001C001C001C001C000C00
+ FBE0EFE018001C001C001C001C001C00>] bdef
+/u [22 3 0 18 19 15 19 -3 0
+<1E0E7F8E79CEE06EF026E016E00EE00EE00EE00EE00EE00EE00EE00EE00EE00E
+ E00EE00EE00E>] bdef
+/v [17 0 0 16 19 16 19 0 0
+<0380038006C006C006400E600C601C301C30183038183818301C700C700C700E
+ E006E0072004>] bdef
+/w [28 0 0 27 19 27 19 0 0
+<038038000380380006C06C0006C06C0006C06C000E40E6000C60C6000C60C600
+ 1C60C3001C21C30038318300383183803831818070138180701B01C0701B01C0
+ E00B00C0E00E00E0200E0080>] bdef
+/x [18 0 0 16 19 16 19 0 0
+<600CE01E701C303818381C700C6006E003C0018003C0076006300E381C181C0C
+ 380E78073006>] bdef
+/y [19 0 -9 17 19 17 28 0 9
+<B00000FC00000E000006000003000003000003800001800001800001C00001C0
+ 000360000360000320000730000630000E18000E18000C18001C0C001C0C0018
+ 0E00380600380600380700700300700380100200>] bdef
+/tilde [23 2 6 21 13 19 7 -2 -6
+<C00F00C03FC0C070C0C0E06061C0607F80601E0060>] bdef
+  end
+
+/BuildGlyph {GlobalBuildGlyph} bdef
+/BuildChar {GlobalBuildChar} bdef
+
+/imageMaskMatrix [1 0 0 1 0 0] bdef
+
+currentdict
+
+end
+
+/Syntax10.Scn.Fnt exch definefont pop
+
+% Conversion of the Oberon font Syntax10i.Scn.Fnt
+% abstraction: 0, family: S, variant: 73
+% height: 42
+
+9 dict begin
+
+/FontType 3 def
+/FontMatrix [ 72 300 div  .24 div 0 0 72 300 div  .24 div 0 0] def
+/FontBBox [-5 -9 38 31] def
+
+/Encoding 256 array def
+0 1 255 {Encoding exch /.notdef put} for
+Encoding OberonEncoding /Encoding exch def
+
+/CharData 121 dict def
+CharData begin
+/.notdef [0 0 0 0 0 1 1 0 0
+<>] bdef
+/space [9 0 0 0 0 1 1 0 0
+<>] bdef
+/parenleft [15 2 -3 15 27 13 30 -2 3
+<04000E001C00180038003000700070006000E000E000E000E000E000E000E000
+ 6000700070003000380018001C000C000700030001C000E000380008>] bdef
+/parenright [15 0 -3 13 27 13 30 0 3
+<8000E00038001C0006000700018001C000C000E0006000700070003000380038
+ 00380038003800380038003000700070006000E000C001C003800100>] bdef
+/asterisk [20 1 1 19 19 18 18 -1 -1
+<201000701C003838001C38000C3000067000026000014000FCBFC0FF4FC000A0
+ 00019000039800030C00070E000707000E0380020100>] bdef
+/period [8 0 0 4 4 4 4 0 0
+<E0F0F070>] bdef
+/colon [10 2 0 8 17 6 17 -2 0
+<E0F0F070000000000000000000383C3C1C>] bdef
+/M [36 -2 0 31 25 33 25 2 0
+<6001C00380E001C003807001A003803001900380380390038018010803801C03
+ 8C03800C018C03800E0386038006038703800703830380030383838003830183
+ 80018701C380018700C18000C700E38000C30061800047003380006300318000
+ 27001980002600098000160009800016000580000E000380000E000380>] bdef
+/O [27 2 0 25 25 23 25 -2 0
+<03F0000FFC003E0F003801C07001E0700060700070E00038E00038E0001CE000
+ 1CE0001CF0001E70000E70000E70000E38000E38000E1C001C0C001C0F001C07
+ 003801E0F8007FE0001F80>] bdef
+/T [16 1 0 20 25 19 25 -1 0
+<1C00001C00001C00000E00000E00000E00000E00000700000700000700000700
+ 0007000003800003800003800003800001C00001C00001C00001C00000E00000
+ E000006000FFFFE0FFFFE0>] bdef
+/b [21 1 0 19 28 18 28 -1 0
+<FE0000DFC000C0F000603800600C00700E007007003003003803803803803801
+ 801C01C01C01C01A01C01901C01981C00CE3800C7F800E1E000E00000E000007
+ 0000070000070000070000038000038000038000>] bdef
+/c [15 1 0 16 19 15 19 -1 0
+<1E007F8070E0E030E000E000E000E000E000700070007000380018001C000600
+ 078001FE003E>] bdef
+/d [21 1 0 21 28 20 28 -1 0
+<1E0C007F8C0071CC00E06600E02600E01600E00A00E00E006007007007007007
+ 003003003803801C03800C038007018003C1C000FEC0001FC00000C00001C000
+ 00E00000E00000E00000E0000070000070000070>] bdef
+/e [17 1 0 16 19 15 19 -1 0
+<3E007F80F1C06060E000E0006000F00060006F0070E03038381C180C1C060606
+ 070601CE007C>] bdef
+/i [10 1 0 10 27 9 27 -1 0
+<E000E000E0007000700070007000380038003800380038001C001C001C001C00
+ 0E000E000E0000000000000000000700078007800380>] bdef
+/m [32 1 0 29 19 28 19 -1 0
+<E01C0380E01C0380E01C0380700E01C0700E01C0700E01C0700E01C0380700E0
+ 380700E0380700E0380300E01C03806014028070120240701901203019833070
+ 18E19C300C7F8FF00C1F03E0>] bdef
+/n [21 1 0 18 19 17 19 -1 0
+<E01C00E01C00E01C00700E00700E00700E00700E003807003807003807003807
+ 001C030014038012038019018019838018E1800C7F800C1F00>] bdef
+/o [20 1 0 18 19 17 19 -1 0
+<0F80003FE000787800701800E01E00E00E00E00700E00700E00700E003807003
+ 807003807003803803803C03800C07000F0F0003FE0000F800>] bdef
+/r [14 1 0 16 19 15 19 -1 0
+<E000E000E0007000700070007000380038003800340014001200190018801CE0
+ 0C7C0C3E0E0E>] bdef
+/s [15 1 0 14 19 13 19 -1 0
+<FE00FF8003C000E000E000E000E001C003C00F801E001C003800380038003800
+ 1E000FF803F8>] bdef
+/t [14 1 0 15 25 14 25 -1 0
+<1F003FC030E0383030003800380018001C001C001C001C000E000E000E000600
+ F5FCFA7C030003800180018001C001C000C0>] bdef
+/u [21 2 0 19 19 17 19 -2 0
+<7C1800FF1800C38C00E0CC00C04C00E02400E01400601C00700E00700E00700E
+ 00700E003807003807003807003807001C03801C03801C0380>] bdef
+/x [17 -1 0 17 19 18 19 1 0
+<401000E01C007038003838001830000C700006700002600001E00000C00001E0
+ 00019000039800038C000306000707000703800E01C0020080>] bdef
+  end
+
+/BuildGlyph {GlobalBuildGlyph} bdef
+/BuildChar {GlobalBuildChar} bdef
+
+/imageMaskMatrix [1 0 0 1 0 0] bdef
+
+currentdict
+
+end
+
+/Syntax10i.Scn.Fnt exch definefont pop
+
+
+OberonInit
+
+%%EndProlog
+%%Page: 0 1
+save
+
+2102 3224 m (Syntax10.Scn.Fnt) f (0) s
+177 3134 m (Syntax10i.Scn.Fnt) f (\(* Oberon outer core: \(minus Texts.Mod\) *\)) s
+177 3094 m (Syntax10.Scn.Fnt) f (Folds.Compile) s
+177 3054 m (X11.Mod\\s) s
+637 3054 m (Input.Mod) s
+1098 3054 m (Display.Mod\\s) s
+1523 3054 m (Fonts.Mod\\s) s
+177 3014 m (Viewers.Mod\\s) s
+637 3014 m (Oberon.Mod\\s) s
+1098 3014 m (MenuViewers.Mod) s
+1523 3014 m (TextFrames.Mod\\s ~) s
+177 2974 m (~) s
+177 2894 m (Folds.Compile) s
+177 2854 m (ParcElems.Mod\\s ) s
+637 2854 m (Configuration.jt.Mod) s
+1098 2854 m (Bitmaps.Mod) s
+1523 2854 m (PopupElems.Mod) s
+1913 2854 m (HandlerElems.) s
+177 2814 m (Directories.Mod) s
+637 2814 m (Strings.Mod) s
+1098 2814 m (OpenElems.Mod) s
+1523 2814 m (Documents.Mod) s
+1913 2814 m (FoldElems.Mo) s
+177 2774 m (Edit.Mod) s
+637 2774 m (Hex.Mod) s
+1098 2774 m (In.Mod\\s) s
+1523 2774 m (Out.Mod\\s) s
+1913 2774 m (XIn.Mod\\s) s
+177 2734 m (Batch.Mod) s
+637 2734 m (EditKeys.Mod) s
+1098 2734 m (Folds.Mod) s
+1523 2734 m (AutoMenuElems.Mod) s
+1961 2734 m (BalloonEle) s
+177 2654 m (BulletElems.Mod) s
+637 2654 m (ClockElems.Mod) s
+1098 2654 m (DirElems.Mod) s
+1523 2654 m (ErrorElems.Mod) s
+1913 2654 m (FontElems.Mo) s
+177 2614 m (HistoryElems.Mod) s
+637 2614 m (IconElems.Mod) s
+1098 2614 m (InfoElems.Mod) s
+1523 2614 m (MarkElems.Mod) s
+1913 2614 m (LinkElems.Mo) s
+177 2574 m (IndexElems.Mod) s
+637 2574 m (LineElems.Mod) s
+1098 2574 m (StampElems.Mod) s
+1523 2574 m (TableElems.Mod\\s) s
+1913 2574 m (VersionElems.) s
+177 2534 m (Find.Mod\\s) s
+177 2494 m (~) s
+177 2414 m (Folds.Compile) s
+177 2374 m (AsciiCoder.Mod\\s) s
+637 2374 m (Decoder.Mod\\s) s
+1098 2374 m (Compress.Mod) s
+1523 2374 m (Shell.Mod) s
+1913 2374 m (Mailer.Mod) s
+177 2334 m (Dates.Mod) s
+637 2334 m (Colors.Mod) s
+1098 2334 m (Count.Mod) s
+1523 2334 m (Lines.Mod) s
+1913 2334 m (Screen.Mod) s
+177 2294 m (~) s
+177 2214 m (Folds.Compile ~) s
+637 2214 m (Math.Mod\\s) s
+1098 2214 m (MathL.Mod\\s ~) s
+1523 2214 m (\(* No compatible sources for Math ) s
+177 2174 m (*\)) s
+177 2094 m (Folds.Compile) s
+177 2054 m (Graphics.Mod) s
+637 2054 m (GraphicFrames.Mod\\s) s
+1098 2054 m (GraphicElems.Mod) s
+1523 2054 m (Draw.Mod) s
+1913 2054 m (Curves.Mod) s
+177 2014 m (Rectangles.Mod) s
+637 2014 m (Splines.Mod\\s) s
+1098 2014 m (XYplane.Mod\\s) s
+1523 2014 m (Display1.Mod\\s) s
+177 1974 m (KeplerPorts.Mod) s
+637 1974 m (KeplerGraphs.Mod\\s) s
+1098 1974 m (KeplerFrames.Mod\\s) s
+1523 1974 m (KeplerElems.Mod\\s) s
+1913 1974 m (Kepler.Mod\\s) s
+177 1934 m (Kepler1.Mod\\s) s
+637 1934 m (Kepler2.Mod\\s) s
+1098 1934 m (Kepler4.Mod\\s) s
+1523 1934 m (Kepler5.Mod\\s) s
+1913 1934 m (Kepler6.Mod\\) s
+177 1894 m (Kepler7.Mod\\s) s
+637 1894 m (Kepler8.Mod\\s) s
+1098 1894 m (Kepler9.Mod\\s) s
+1523 1894 m (Film.Mod\\s) s
+1913 1894 m (KeplerLinks.M) s
+177 1854 m (~) s
+177 1774 m (Folds.Compile) s
+177 1734 m (Sets.Mod) s
+637 1734 m (CRS.Mod) s
+1098 1734 m (CRT.Mod) s
+1523 1734 m (CRA.Mod) s
+1913 1734 m (CRX.Mod) s
+177 1694 m (CRP.Mod) s
+637 1694 m (Coco.Mod) s
+1098 1694 m (Calc.Mod) s
+1523 1694 m (Calendar.Mod) s
+177 1654 m (MoreMathL.Mod) s
+637 1654 m (MatrixL.Mod) s
+1098 1654 m (Stat.Mod) s
+1523 1654 m (Statistics.Mod) s
+177 1614 m (RandomNumbers.Mod\\s) s
+637 1614 m (Swarm.Mod\\s) s
+177 1574 m (~) s
+177 1494 m (Folds.Compile) s
+177 1454 m (GUtils.Mod) s
+637 1454 m (Elems.Mod\\s) s
+1098 1454 m (PanelElems.Mod\\s) s
+1523 1454 m (Panel.Mod\\s) s
+1913 1454 m (ElemTools.Mo) s
+177 1414 m (AreaButtonElems.Mod\\s) s
+637 1414 m (ButtonElems.Mod\\s) s
+1098 1414 m (CheckBoxElems.Mod\\s) s
+1523 1414 m (ColorElems.Mod\\s) s
+1913 1414 m (FrameElems.M) s
+177 1374 m (ListElems.Mod\\s) s
+637 1374 m (RadioButtonElems.Mod\\s) s
+1523 1374 m (StaticTextElems.Mod\\s) s
+177 1334 m (TextFieldElems.Mod\\s) s
+637 1334 m (TextAreaElems.Mod\\s) s
+1098 1334 m (StyleElems.Mod\\s) s
+1523 1334 m (ElemsUI.Mod\\s) s
+177 1294 m (~) s
+177 1214 m (Folds.Compile) s
+177 1174 m (FEFonts.Mod) s
+637 1174 m (FontEdit.Mod) s
+1098 1174 m (Util.Mod) s
+177 1134 m (RealsETH.Mod) s
+637 1134 m (StringsETH.Mod) s
+1098 1134 m (ArchiveElems.Mod) s
+177 1094 m (Easter.Mod) s
+637 1094 m (DayDif.Mod) s
+1098 1094 m (DAFiles.Mod) s
+1523 1094 m (Boards.Mod) s
+1913 1094 m (BoardFrames.) s
+177 1054 m (StatusViewer.Mod) s
+177 1014 m (~) s
+177 894 m (LineElems    2784   0) s
+177 854 m (FontElems    2420   0) s
+177 814 m (Edit   13376   0) s
+177 774 m (FoldElems    7740   1) s
+177 734 m (OpenElems    3048   0) s
+177 694 m (Strings    2292   1) s
+177 654 m (Directories    6332   1) s
+177 614 m (HandlerElems    1708   0) s
+177 574 m (PopupElems   10328   3) s
+177 534 m (Bitmaps     200   1) s
+177 494 m (Configuration     948   0) s
+177 454 m (FKeys    2248   1) s
+177 414 m (System   15440   0) s
+177 374 m (ParcElems   15656   1) s
+177 334 m (TextPrinter   12648   5) s
+177 294 m (Printer   21888   4) s
+177 254 m (TextFrames   31988  12) s
+177 214 m (MenuViewers    4352   7) s
+1 p
+%%Page: 0 2
+2102 3224 m (Syntax10.Scn.Fnt) f (1) s
+177 3134 m (Oberon    6032  13) s
+177 3094 m (Viewers    3296  14) s
+177 3054 m (Texts   17372  15) s
+177 3014 m (Reals     972   1) s
+177 2974 m (Fonts    3656  16) s
+177 2934 m (Files    8820  17) s
+177 2894 m (Display    8004  19) s
+177 2854 m (Input    7704   8) s
+177 2814 m (X11   11304   5) s
+177 2774 m (Console     672   5) s
+177 2734 m (Modules     716   8) s
+177 2694 m (Unix    2996   9) s
+177 2654 m (Kernel    4416  11) s
+1 p
+%%Trailer         

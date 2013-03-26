@@ -1,0 +1,12 @@
+; list Oberonv4/(~(Loader))/#?.(Sym|Obj) lformat="%f%n" >t:x
+
+assign here: ""
+cd Oberon4Amiga:
+
+list (~(Loader|Loader.old))/#?.Obj #?.Obj lformat="%f%n" >t:x
+
+Loader/verify t:x
+delete t:x
+
+cd here:
+assign here: remove

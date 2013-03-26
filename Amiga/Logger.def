@@ -1,0 +1,23 @@
+DEFINITION MODULE Logger{"logger.library",40};
+
+FROM ExecD IMPORT Library;
+IMPORT R;
+
+CONST
+ loggerName="logger.library";
+ version=40; (* Ihre Versionsnummer *)
+
+TYPE
+ LoggerBasePtr=POINTER TO LoggerBase;
+ LoggerBase=RECORD
+  lib: Library;
+ END;
+
+PROCEDURE clear; CODE -30;
+PROCEDURE firstPos():LONGCARD; CODE -36;
+PROCEDURE nextPos():LONGCARD; CODE -42;
+PROCEDURE read(pos{R.D2}:LONGCARD):CHAR; CODE -48;
+PROCEDURE write(ch{R.D2}:CHAR); CODE -54;
+PROCEDURE writeStamp; CODE -60;
+
+END Logger.def

@@ -1,0 +1,35 @@
+DEFINITION MODULE LoggerLib;
+
+FROM SYSTEM	IMPORT	ADDRESS;
+FROM ExecD	IMPORT	Library;
+IMPORT R; (* Register-Nummern *)
+(* Eigene Importe: *)
+
+CONST
+  version = 40; (* Ihre Versionsnummer *)
+
+TYPE
+  LoggerBasePtr = POINTER TO LoggerBase;
+  LoggerBase = RECORD
+    lib: Library;
+    (* Globale Variablen hier hinein! *)
+  END;
+
+CONST
+  baseSize = SIZE(LoggerBase); (* Nur für M2LibLink wichtig *)
+
+PROCEDURE LibOpen(myLib{R.A6}:LoggerBasePtr):ADDRESS;
+PROCEDURE LibClose(myLib{R.A6}:LoggerBasePtr):ADDRESS;
+PROCEDURE LibExpunge(myLib{R.A6}:LoggerBasePtr):ADDRESS;
+PROCEDURE LibExtFunc(myLib{R.A6}:LoggerBasePtr):ADDRESS;
+
+(* Ihre Prozeduren: *)
+
+PROCEDURE clear;
+PROCEDURE firstPos():LONGCARD;
+PROCEDURE nextPos():LONGCARD;
+PROCEDURE read(pos{R.D2}:LONGCARD):CHAR;
+PROCEDURE write(ch{R.D2}:CHAR);
+PROCEDURE writeStamp;
+
+END LoggerLib.def

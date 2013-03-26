@@ -1,0 +1,69 @@
+DEFINITION MODULE PeekNPoke;
+(*
+ The routines of this module allow to read/build a data structure in a  machine
+ independent way. Instead of aliasing datatypes to memory areas, the structure
+ is read/built by copying individual bytes from/to the correct place.
+
+ In all routines, base is a pointer (anchor) to the memory block you want to
+ manipulate and offset an address relativ to this base.
+
+ Word is used to denominate a 2 byte entity, long to denominate a 4 byte entity.
+*)
+
+FROM SYSTEM IMPORT ADDRESS;
+
+PROCEDURE PutByte(base:ADDRESS; offset:LONGINT; value:SHORTCARD);
+(* Write a single byte *)
+
+PROCEDURE PutWordB(base:ADDRESS; offset:LONGINT; value:CARDINAL);
+(*
+ Write a word in big endian fashion, i.e. most significant byte
+ at lowest memory address.
+*)
+
+PROCEDURE PutWordL(base:ADDRESS; offset:LONGINT; value:CARDINAL);
+(*
+ Write a word in little endian fashion, i.e. most significant byte
+ at highest memory address.
+*)
+
+PROCEDURE PutLongB(base:ADDRESS; offset:LONGINT; value:LONGCARD);
+(*
+ Write a long word in big endian fashion, i.e. most significant byte
+ at lowest memory address.
+*)
+
+PROCEDURE PutLongL(base:ADDRESS; offset:LONGINT; value:LONGCARD);
+(*
+ Write a long word in little endian fashion, i.e. most significant byte
+ at highest memory address.
+*)
+
+PROCEDURE GetByte(base:ADDRESS; offset:LONGINT):SHORTCARD;
+(* Read a byte *)
+
+PROCEDURE GetWordB(base:ADDRESS; offset:LONGINT):CARDINAL;
+(*
+ Read a word in big endian fashion, i.e. the most significant
+ byte from the lowest memory address.
+*)
+
+PROCEDURE GetWordL(base:ADDRESS; offset:LONGINT):CARDINAL;
+(*
+ Read a word in little endian fashion, i.e. the most significant
+ byte from the highest memory address.
+*)
+
+PROCEDURE GetLongB(base:ADDRESS; offset:LONGINT):LONGCARD;
+(*
+ Read a long word in big endian fashion, i.e. the most significant
+ byte from the lowest memory address.
+*)
+
+PROCEDURE GetLongL(base:ADDRESS; offset:LONGINT):LONGCARD;
+(*
+ Read a long word in little endian fashion, i.e. the most significant
+ byte from the highest memory address.
+*)
+
+END PeekNPoke.

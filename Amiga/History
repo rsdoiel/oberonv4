@@ -1,0 +1,559 @@
+This History files starts at the point, where Ralf Degner
+begins to build V1.0. At the beginning O4A is somewhere between
+V0.10 and V1.0.
+
+26.10.95
+
+- New compiler is now the normal compiler. OOPC and OOPL are the old sources
+  Use OAmigaBase with old and AmigaBase with new Compiler
+- Amiga-OS only uses D0/D1 for results, so AmigaBase only writes this back
+
+27.10.95
+
+- New version of AmigaMath and AmigaMathL added
+- Math and MathL with direct FPU-code (faaaster) added
+
+29.10.95
+
+- MoreMathL (with FPU code) added
+- Mines files updated
+- ObTris added
+- new Picture, PictElems, PictureFrames included
+- AmigaGraphics.WaitBlit => AmigaBase killed in Pictures
+- Paint, AmigaIFF, AmigaIFFParse, Clipboard, IFF added
+
+30.10.95
+
+- RX.Tool and TextPreview.Tool added
+- set RX buffers to 20000 (32000 needs more Stack)
+- included new Printer Modules from Stefan, modified PSPrinter.Mod for Amiga
+- executing the OberonPrint script works now
+- System.PrinterName added, set name of printer send to the script
+- new Oberon.Header.ps from Stefan
+
+01.11.95
+
+- new XE from Stefan added, XE.Menu.Text fixed
+
+02.11.95
+
+- Automatic added
+- problems with new PSPrinter fixed
+- Kepler added
+
+05.11.95
+
+- Pr3-Fonts added
+- Header.File.ps modified, now it works with post and gs
+
+09.11.95
+
+- added Amiga.MainLoopType, System.AmigaLoop and System.OberonLoop
+- now Archiv begins with a Subdirectory OberonV4
+
+14.11.5
+
+- second MainLoop with Dos.Delay added
+- Printer Scpipt works fine now
+
+20.11.95
+
+- System.DosCall now gives better Error-Messages
+- No Spaces in Files/Directorys anymore, where it was possible before
+
+21.11.95
+
+- FoldElems.Search produces a Trap, if selection is larger than 128 Chars
+  => only first 127 Chars are used
+
+22.11.95
+
+- Stefans new Utils included (not enough register, Grrrr!)
+- NonFPU Files included
+
+23.11.95
+
+- ScreenMode Requester (Amiga.ChangeMode) opens if Ver(Asl Lib)>=38
+
+27.11.95
+
+- In and Out from Linz added (to run Linz PD-Software)
+
+28.11.95
+
+- Added Out.Menu.Text for new Out from Linz
+- LHA-File was corrupt, Grumpf, have to find new LHA
+
+30.11.95
+
+- PSPrinter modified to map Oberon Fonts to PS Fonts
+
+01.12.95
+
+- PSPrinter now works fine
+
+03.12.95
+
+- PSPrinter now uses PS fonts if no Pr3 is available
+
+04.12.95
+
+- original In and Out used again; In, Out and PopUps from Linz as Source
+
+07.12.95
+
+- Screen Mode Requester now really works with V38 fo ASL Lib
+- MaxDepth added to Screen Mode Requester (Flo)
+
+------------------------------------------------------------------------------
+                    Oberon System V4 for Amiga V1.0
+------------------------------------------------------------------------------
+
+10.12.95
+
+- compiler modified (OPC.DeRef) to save adress registers
+
+12.12.95
+
+- added CR to Log in Log.Clear
+- TextFrames.Tick: Display.Black changed to Display.White (requested by Flo)
+- problem with screen mode at OS2.x finally fixed (thanks to Roman)
+
+15.12.95
+
+- OS2.x problems finally fixed, again.
+- Printing of PictElems works, Paint.Print not available (and will never)
+
+23.12.95
+
+- missing Files in Src added (L, Macro, InOut, AmigaLogger)
+- OPL: more global Pointers und Commands allowed, Error Message if to many
+  global Pointers used (no TRAP anymore)
+- Times printer and screen fonts as own archiv (Oberon-Times.lha)
+
+24.12.95
+
+- scanning problems of Calc fixed
+
+25.12.95
+
+- New procedures from Linz In and Out added to old In and Out
+- Popups from Linz now work fine (RemovePointers added)
+
+26.12.95
+
+- OPM: argument of HALT now 20<=n<=255
+- added MemoryPool procedures in AmigaExec
+- added Folds (only for higher compability, use XE instead)
+- added Class
+- added UUDecode in Demos
+
+27.12.95
+
+- Fonts uses Memorypools for Chip-Mem-Allocation (if execVersion>=39)
+
+28.12.95
+
+- Chip-Mem-Pool management moved from Fonts to Amiga
+
+29.12.95
+
+- added AllocBitMap procedures and constants in AmigaGraphics
+- added MainBitMap in Amiga.Mod to use as friendly BitMap with AllocBitMap
+- Pictures.copyPattern now uses SetWriteMask if possible
+  (hope that will solve problems with RetinaZ3)
+- use AllocBitMap for Os3.0 or higher
+
+30.12.95
+
+- added Coroutines sent in by Claudio
+- all procedures using Pictures.planes[] fixed to Pictures.layer.rp.BitMap.planes
+  (=> no problems with new AllocBitMap anymore)
+- added SwapBits in Amiga and killed in all others
+- Pictures.NewPattern uses MemPool for Chip-RAM alloc (only OS3.0)
+  => ALL memory will be released at the end of the game
+- fixed some problems with Dialogs (tell Markus about it)
+
+31.12.95
+
+- designed AmigaSerial.Mod
+- began V24.Mod
+
+08.01.96
+
+- added new XE from Stefan
+
+09.01.96
+
+- fixed 2 bugs in Analyzer announced by Stefan
+- first compile Expr, works fine (2 time to less regs)
+- added and ported ProgElems from Stefan
+
+11.01.96
+
+- new ProgElems from Stefan
+
+16.01.96
+
+- V24 works now, added buffered Recieve
+- fixed bug in TextFrames (thanks to WW)
+
+17.01.96
+
+- cleaned up V24
+
+22.01.96
+
+- added Def
+
+03.02.96
+
+- added Kenel.GCenabled for new Coroutines
+- added SortBasics and SortPlus in Demo
+
+07.02.96
+
+- Hartmuts PS-Kram now works fine
+- replaced ProgElems by LocElems and TextLoc
+- moved Pr3 fonts, available as PS fonts, to Oberon-Fonts.lha
+
+11.02.96
+
+- Oh, forgot LocElems and TextLoc in Archive
+- New LocElems from Stefan
+
+------------------------------------------------------------------------------
+                    Oberon System V4 for Amiga V1.1
+------------------------------------------------------------------------------
+
+14.02.96
+
+- ReplConst, Line and Ellipse in Pictures now use Display.invert in the
+  right way
+- yellow and pink swaped in Amiga.InitColors for 16 or more Colors
+- TextFrames.Tick uses Display.White again
+- with more than 16 Colors, highest one is gray => ScreenMode-Req is visibel
+
+19.02.96
+
+- tried to speed up Text-Display; 75% of time in AmigaGraphics.BltTemplate
+  can not make this faster
+- Oh, forgot Def in Make.Tool
+
+22.02.96
+
+- improved setting of WriteMask in Pictures, therefor added SetDrawMode
+
+25.02.96
+
+- no need to SetAPen if mode is invert (Pictures)
+
+28.02.96
+
+- added ModulaToOberon.Text Oberon2.OOP.Text
+- added Sessions.Mod and new Terminal.Mod from ww, Problems !!
+- added Open command to V24 to start Serial Device
+
+29.02.96
+
+- Sessions works now, problems with Task with time field -1
+- fixed bug in Analyzer announced by Stefan
+
+03.03.96
+
+- Added V24.Avail to MainLoop => char at SerialDevice is now an event
+  => bg tasks with .time=-1 are executed (Sessions works fine now)
+- AmigaLoop now uses the Timer Device; changed Amiga, AmigaTimer, System, Oberon
+- added new Icons from Peter Landmann, very nice
+
+04.03.96
+
+- fixed color bug in Pictures.CopyBlock (added SetDrawMode)
+
+06.03.96
+
+- finished F-key support (see Oberon4Amiga.Guide.Text)
+
+15.03.96
+
+- forgot Browser.Tool, Kepler.Text, Kepler.Tool & Palette.Kep in archive, sorry
+- added fixed FoldDemo.Text
+- added Fonts.Tool from Peter Landmann
+- added new XE from Stefan (see XE.Mod for XE history)
+
+19.03.96
+
+- cleand up Menues und changed it for new XE (XE.Compiler, XE.Error)
+- fixed Problems with Pri in AmigaLoop (now only MainLoop changes Pri)
+- IFF, Clipboard and AmigaIFF are a bit shorter now
+- added line in Modules.ThisMod, thanks to Claudio
+- new Procedures ConvAtoO and ConvOtoA in Amiga to convert Chars
+- use ^ in Clipboard -> all Chars find there way through it
+
+20.03.96
+
+- added Folds from Linz, therefor little change in XE and Folds
+- added Elems: Menu, Mark, Index, Link, Version, Info, therefor PopupElemsLinz
+- changed HotKey of EditKeys to F5
+
+21.03.96
+
+- shorted Input a bit (R2O = RawkeyToOberon added)
+- normal Amiga Clipboard-Keys work in Oberon
+- Cursor is set to the end of inserted Text after Clipboard.Copy
+
+23.03.96
+
+- No DeleteError at System.DosCall anymore -> no funny error messages
+  at System.Directory
+
+24.03.96
+
+- Printing of Pictures and PictElems works fine now
+    it uses no direct access to the gfx-mem anymore
+    is very, very slow (sorry)
+    System.PictPrintThresh added to define wich color should be black or white
+
+25.03.96
+
+- added directoy System1 for Dialogs, Expr, ....
+- made Expressions.lha
+
+26.03.96
+
+- made Dialogs.lha
+
+27.03.96
+
+- strated TestSystem and new StartUp-Script
+
+28.03.96
+
+- finished TestSystem and StartUp-Script
+
+02.04.96
+
+- added SyntaxXm Screen and Printer fonts
+- added CrazyFiller
+
+04.04.96
+
+- began ReferenceCard
+
+09.04.96
+
+- ReferenceCard again
+- new XE from Stefan, therefor Host added
+
+10.04.96
+
+- ReferenceCard again and again ....
+- System.Quit shows Requester now, therefor added System.UseQuitRequester
+
+11.04.96
+
+- ReferenceCars now ready
+- updated all ReadMe files
+
+------------------------------------------------------------------------------
+                    Oberon System V4 for Amiga V1.2
+------------------------------------------------------------------------------
+
+14.04.96
+
+- added change from RC to OPP.Mod  ??? Have to get new OP2
+- fixed FoldElems.Search Trap with large selections, again
+
+17.04.96
+
+- fixed bug with VARs of type PROCEDURE(..):REAL in OPV.Expr
+
+20.04.96
+
+- added new Directory Icon; Thanks to Peter Landmann
+- StampElems uses Display.invert to plot chars
+- added old style to Linzer PopupElems
+
+22.04.96
+
+- finished old style in Linz PopupElems
+  => killed some files and cleaned up Make.Tool
+
+23.04.96
+
+- Updated Elem.Guide.Text
+- Uses default Mouse-Pointer if Quit and ChangeMode Requesters are displayed
+  at Oberon Window
+
+24.04.96
+
+- Recompiled all => 30 Errors.  Grumpf ! Fixed all
+- Compiler produces wrong code in FoldElems.Search
+
+25.04.96
+
+- OPV bug fix was no real fix, introduces only a new bug; now it`s allright
+
+26.04.96
+
+- cleaned up Pictures, now uses Picture.rp if possible
+- fixed AmigaIFF to Picture.rp
+
+28.04.96
+
+- O4A now runs in a WB Window, a lot of changes
+- old style Popups show if they are selected
+
+01.05.96
+
+- Window opens now at the default Public Screen and locks it
+
+02.05.96
+
+- real Oberon mouse pointer at Window
+- Window is active after it opens
+- added ColorOffset to Amiga, Display and Pictures (hope I found all)
+
+08.05.96
+
+- fixed bugs in modified PopupElems
+- moved InitColors from Amiga to Display
+- added some procedures to Pictures to handle screen colors
+
+09.05.96
+
+- everythink works fine with O4A in a Window
+- Oberon.Mod updates the mouse pointer only if the window is active
+- made Coco.lha
+
+10.05.96
+
+- OPT, OPB, OPP updated
+
+11.05.96
+
+- added use of AmigaGraphics.Text if font is Amiga font to TextFrames
+
+12.05.96
+
+- fixed bug in Amiga font loading: kerning has to be added to dx, too
+
+26.05.96
+
+- added CreateDir, GetCurrentDirName, SetCurrentDirName to AmigaDos
+- made Console and portable Reals
+
+27.05.96
+
+- added HostSYS
+- replaced O by Console
+- changed default colors 11-14 to Dialogs colors
+- fixed Trap at Colors.Load (Pictures.SetColor GetColor SetDisplayColor)
+
+28.05.96
+
+- added Dir.Text, Dir.Menu.Text, Strings, Dir and Directories
+
+29.05.96
+
+- added new Directories with Flo
+
+------------------------------------------------------------------------------
+                    Oberon System V4 for Amiga V1.3
+------------------------------------------------------------------------------
+
+RD   = Ralf Degner (degner@pallas.amp.uni-hannover.de)
+OJ   = Oliver Joos (ojoos@iiic.ethz.ch)
+FF   = Florian Faber (faber@faba.han.de)
+CN   = Claudio Nieder (claudio@dial.eunet.ch)
+SHML = Stefan Ludwig (ludwig@inf.ethz.ch)
+
+02.06.96
+
+FF - new Directories.Mod and Dir.Mod
+RD - added DirElems to Release and info about it to Elem.Guide.Text
+OJ - better use of ADDQ/SUBQ in OPC
+OJ - CLR.L ax illegal opcode at SYSTEM.PUTREG(8,0), fixed in OPL.Move
+
+04.06.96
+
+RD - improved Console to bring it to a UnifiedV4 module
+
+06.06.96
+
+OJ - fixed Bug in Clipboard.ClipToWriter (last 32 changed to 33)
+RD - OPL.MOVEM uses normal move for only one Reg
+
+09.06.96
+
+OJ - added SYSTEM.CALL to Compiler, changes in OPT, OPB, OPC, OPV
+RD - added Synchronize in Display for UniV4
+OJ - new AmigaExec using SYSTEM.CALL and offers Term-Procs
+RD - added a lot of procedures to OJs AmigaDos
+CN - UniV4 Viewers
+OJ - new KillOberon
+
+10.06.96
+
+OJ - added new Amiga*.Mods to V1.3
+RD - added procs to OJs AmigaGraphics and AmigaIntuition
+RD - fixed Pictures to OJs new Amiga*.Mod, added some enhancements from OJ
+
+16.06.96
+
+RD - killed AmigaBase, replaced by SYSTEM.CALL
+RD - UniV4 Reals and Console fixed again
+RD - introduced AmigaSystem
+OJ - all libraries and devices closed at the end of the game now
+
+17.06.96
+
+RD - now uses GimmeZeroZero for WB Window (OJ persuades me)
+
+18.06.96
+
+RD - Console and Reals again and again and again ...
+
+19.06.96
+
+RD - added Col MOD nofCols to Pictures.SetMode again
+
+30.06.96
+
+CN - System.ShowFiles only opens Viewer if File.Length>0
+
+15.07.96
+
+RD - started to port NetSystem, does not work at the moment
+     New Mods: AmigaBSD, AmigaNetBase, NetSystem
+
+28.07.96
+
+RD - killed AnsiiInput and OberonInput in AmigaSystem
+OJ - AmigaExec and AmigaIntuition with a lot of new procs
+OJ - first beta of new Input.Mod
+RD - updated all Non-FPU modules
+
+11.08.96
+
+CN - Unified versions: Texts, AsciiCoder, In, Out and ClockElems
+RD - extended HostSYS
+RD - killed everything with dontConvert in Amiga.Mod
+RD - moved CHAR conversion from Amiga to HostSYS
+
+13.08.96
+
+SHML - new version of Analyzer (less to port, fine (RD))
+
+25.08.96
+
+RD - Fixed a bug in Log
+
+30.12.96
+
+OJ - new version of Input
+
+------------------------------------------------------------------------------
+                    Oberon System V4 for Amiga V1.4
+------------------------------------------------------------------------------
+

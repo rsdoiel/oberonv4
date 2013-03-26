@@ -1,0 +1,79 @@
+DEFINITION MODULE Terminator;
+(*
+ Diese Modul verwaltet eine Liste von "Abschlussprozeduren". Sie sollen
+ bei Beendigung eines Programms ausgeführt werden, um allozierte Resourcen
+ freizugeben, oder allgemein "Aufräumarbeiten" auszuführen.
+
+ Die Prozeduren werden in umgekehrter Reihenfolge des Einfügens ausgeführt.
+
+ Die Prozduren dieses Modul manipulieren eine globale Liste. Während eine
+ Prozedur abgearbeitet wird, darf keine andere Prozedur dieses Moduls aus-
+ geführt werden. Dies ist bei den meisten Anwendungen garantiert. Eine
+ Ausnahme bilden Programme die selbst Tasks oder Prozesse kreieren, bzw.
+ Interruptroutinen installieren. Falls in verschiedenen Tasks, oder in
+ einer Interruptroutine und im normalen Programmablauf Prozeduren diese
+ Moduls verwendet werden, muss z.B. mit Hilfe von Forbid/Permit bzw.
+ Disable/Enable für den gegenseitigen Ausschluss gesorgt werden.
+*)
+
+FROM SYSTEM IMPORT ADDRESS,CAST;
+
+TYPE
+ UserData=ADDRESS;
+(*
+ Vom Benutzer frei zu verwenden.
+*)
+
+ TermProc=PROCEDURE(UserData{0});
+(*
+ Format einer Abschlussprozedur.
+*)
+
+ Reference;
+(*
+ Identifiziert eine oder mehrere Abschlussprozeduren.
+*)
+
+CONST
+ newReference=CAST(Reference,NIL);
+
+PROCEDURE Add(tp:TermProc; ud:UserData; ref:Reference):Reference;
+(*
+ Fügt die Prozedur "tp" zusammen mit dem Wert von "ud" in die Liste ein.
+ Beim späteren Aufruf der Prozedur, wird sie den Wert von "ud" als Parameter
+ erhalten.
+
+ Wenn "ref" den Wert "newReference" enthält, dann wird "Add" selbst eine
+ Referenz kreieren und als Resultat zurückgeben. Diese Referenz kann
+ bei einem Aufruf von "Remove" oder "Use" oder "Add" wiederverwendet
+ werden.
+
+ Es kann auch eine zuvor von "Add" erhaltene Referenz dem Parameter "ref"
+ zugewiesen werden. Dadurch können Gruppen von Abschlussprozeduren gebildet
+ werden, die dann von "Remove" und "Use" gesamthaft verwendet werden.
+
+ Falls Add nicht korrekt ausgeführt werden kann, wird als Resultat der
+ Wert "newReference" zurückgegeben.
+*)
+
+PROCEDURE Remove(VAR ref:Reference);
+(*
+ Entfernt alle Prozeduren, die der Referenz "ref" zugeteilt wurden, aus
+ der Liste.
+
+ BEACHTE
+  Nach diesem Aufruf ist die übergebene Referenz nicht mehr gültig. Die
+  Prozedur setzt den Parameter auf "newReference".
+*)
+
+PROCEDURE Use(VAR ref:Reference);
+(*
+ Ruft alle Prozeduren die der Referenz "ref" zugeteilt wurden auf, und
+ entfernt sie dann aus der Liste.
+
+ BEACHTE
+  Nach diesem Aufruf ist die übergebene Referenz nicht mehr gültig. Die
+  Prozedur setzt den Parameter auf "newReference".
+*)
+
+END Terminator.

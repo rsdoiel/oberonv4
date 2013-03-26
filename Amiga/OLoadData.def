@@ -1,0 +1,125 @@
+DEFINITION MODULE OLoadData;
+(*
+ This module allows the access to the data structures Module and
+ TypeDescriptor, which are used also in the Oberon System.
+
+ The access is done through procedures. These procedures are
+ written in concordance to the aligning rules of the oberon
+ compiler.
+
+ Thus this module has to be revised whenever the oberon compiler
+ is changed.
+*)
+
+(*FROM SYSTEM IMPORT ADDRESS;*)
+
+CONST
+ descSizeAligned=92; (* Descriptor size, long word aligned *)
+
+CONST
+ nameLen=24;
+
+TYPE
+ Absolute=LONGINT;
+ Offset=LONGINT;
+ OldCardinal=CARDINAL;
+ OldLongCard=LONGCARD;
+ CARDINAL=INTEGER;
+ LONGCARD=LONGINT;
+
+ CodeBase=Absolute;
+ ConstBase=Absolute;
+ CommandBase=Absolute;
+ Count=CARDINAL;
+ DataBase=Absolute;
+ Entry=Offset;
+ EntryBase=Absolute;
+ Key=LONGCARD;
+ ImportBase=Absolute;
+ Index=CARDINAL;
+ Module=Absolute;
+ Name=ARRAY [0..nameLen-1] OF CHAR;
+ PointerBase=Absolute;
+ RefBase=Absolute;
+ Size=LONGCARD;
+ Tag=LONGCARD;
+ TypeDescriptor=Absolute;
+
+VAR
+ module255:ARRAY [0..255] OF Absolute;
+(*
+ module255 has to be prefilled with the absolute addresses of
+ special funtions. The compiler encodes them as functions belonging
+ to the module with module number 255. Whenever fixup encounters
+ a reference to (mno=255, eno), it will translate this entry
+ using this array.
+*)
+
+PROCEDURE commandG(mod:Module):CommandBase;
+PROCEDURE commandP(mod:Module; command:CommandBase);
+PROCEDURE commandsEntryG(mod:Module; index:Index):Entry;
+PROCEDURE commandsEntryP(mod:Module; index:Index; entry:Entry);
+PROCEDURE commandsNameG(mod:Module; index:Index; VAR name:Name);
+PROCEDURE commandsNameP(mod:Module; index:Index; name:Name);
+PROCEDURE codeG(mod:Module):CodeBase;
+PROCEDURE codeP(mod:Module; code:CodeBase);
+PROCEDURE codeSizeG(mod:Module):Size;
+PROCEDURE codeSizeP(mod:Module; size:Size);
+PROCEDURE constG(mod:Module):ConstBase;
+PROCEDURE constP(mod:Module; const:ConstBase);
+PROCEDURE constSizeG(mod:Module):Size;
+PROCEDURE constSizeP(mod:Module; size:Size);
+PROCEDURE dataG(mod:Module):DataBase;
+PROCEDURE dataP(mod:Module; data:DataBase);
+PROCEDURE dataSizeG(mod:Module):Size;
+PROCEDURE dataSizeP(mod:Module; size:Size);
+PROCEDURE entriesG(mod:Module; index:Index):Entry;
+PROCEDURE entryG(mod:Module):EntryBase;
+PROCEDURE entryP(mod:Module; entry:EntryBase);
+PROCEDURE importG(mod:Module):ImportBase;
+PROCEDURE importP(mod:Module; import:ImportBase);
+PROCEDURE importsG(mod:Module; index:Index):Module;
+PROCEDURE importsP(mod:Module; index:Index; module:Module);
+PROCEDURE keyG(mod:Module):Key;
+PROCEDURE keyP(mod:Module; key:Key);
+PROCEDURE nameG(mod:Module; VAR name:Name);
+PROCEDURE nameP(mod:Module; name:Name);
+PROCEDURE nextG(mod:Module):Module;
+PROCEDURE nextP(mod:Module; next:Module);
+PROCEDURE nofCommandsG(mod:Module):Count;
+PROCEDURE nofCommandsP(mod:Module; count:Count);
+PROCEDURE nofEntriesG(mod:Module):Count;
+PROCEDURE nofEntriesP(mod:Module; count:Count);
+PROCEDURE nofImportsG(mod:Module):Count;
+PROCEDURE nofImportsP(mod:Module; count:Count);
+PROCEDURE nofPointersG(mod:Module):Count;
+PROCEDURE nofPointersP(mod:Module; count:Count);
+PROCEDURE pointerG(mod:Module):PointerBase;
+PROCEDURE pointerP(mod:Module; pointer:PointerBase);
+PROCEDURE refG(mod:Module):RefBase;
+PROCEDURE refP(mod:Module; ref:RefBase);
+PROCEDURE refCntG(mod:Module):Count;
+PROCEDURE refCntP(mod:Module; refCnt:Count);
+PROCEDURE refSizeG(mod:Module):Size;
+PROCEDURE refSizeP(mod:Module; size:Size);
+PROCEDURE tagP(mod:Module; tag:Tag);
+
+PROCEDURE tdExtensionLevelG(td:TypeDescriptor):Count;
+PROCEDURE tdModuleP(td:TypeDescriptor; mod:Module);
+PROCEDURE tdNumberOfMethodsG(td:TypeDescriptor):Count;
+PROCEDURE tdSizeG(td:TypeDescriptor):Size;
+PROCEDURE tdSizeP(td:TypeDescriptor; size:Size);
+PROCEDURE tdTagP(td:TypeDescriptor; tag:Tag);
+
+PROCEDURE Address(mod:Module; mno,eno:SHORTCARD):Absolute;
+PROCEDURE AllocateMod(nofEntries:Count; nofCommands:Count; nofPtrs:Count; nofImports:Count; constSize:Size; dataSize:Size; codeSize:Size; refSize:Size):Module;
+PROCEDURE CompleteTypeDescs(mod:Module);
+PROCEDURE DeallocateMod(mod:Module);
+PROCEDURE EqualName(mod:Module; name:ARRAY OF CHAR):BOOLEAN;
+PROCEDURE Fixup(mod:Module; link:CARDINAL);
+PROCEDURE GetName(base:Absolute; offset:LONGINT; VAR name:Name);
+PROCEDURE PutName(base:Absolute; offset:LONGINT; name:Name);
+PROCEDURE MakeAbsolute(mod:Module; base:Absolute; entry:Entry);
+PROCEDURE SetupPointers(mod:Module);
+
+END OLoadData.
