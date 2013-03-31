@@ -17,6 +17,11 @@ import org.apache.commons.lang3.text.translate.CharSequenceTranslator;
 import org.apache.commons.lang3.text.translate.NumericEntityEscaper;
 
 /**
+ * Filter for transforming Oberon Text files into a readable version. It can
+ * output them both in a plain text version with all formatting stripped or a
+ * pseudo-XML version which contains all information gathered from the input
+ * file.
+ * 
  * @author <a href="mailto:private@claudio.ch">Claudio Nieder</a>
  *         <p>
  *         Copyright (C) 2013 Claudio Nieder &lt;private@claudio.ch&gt;, CH-8610
@@ -53,11 +58,6 @@ public class OberonFilter
    System.exit(1);
   }
  }
-
- /**
-  * set to true to generate a lot of debug statements.
-  */
- private static final boolean debug=false;
 
  /**
   * Describe usage of command.
@@ -227,16 +227,10 @@ public class OberonFilter
      return Integer.compare(p1.pos,p2.pos);
     }
    });
-   if (debug) {
-    System.out.printf("*File pos=%x%n",Integer.valueOf(6));
-   }
    int fontNumber=in.read();
    int filePos=7;
    int pos=headLen;
    while (fontNumber!=0) {
-    if (debug) {
-     System.out.printf("File pos=%x%n",Integer.valueOf(filePos));
-    }
     final Piece piece=new Piece();
     piece.font=fontNumber;
     piece.pos=pos;
@@ -246,58 +240,34 @@ public class OberonFilter
      filePos+=fontName.length()+1; // 0 final terminated string
      fontMap.put(Integer.valueOf(fontNumber),fontName);
     }
-    if (debug) {
-     System.out.printf("File pos=%x%n",Integer.valueOf(filePos));
-    }
     piece.col=in.read();
     piece.voff=in.read();
     piece.len=get4(in);
     filePos+=6;
-    if (debug) {
-     System.out.printf("File pos=%x%n",Integer.valueOf(filePos));
-    }
     if (piece.len<=0) { // It's an element
      final int elementDataLength=-piece.len;
      piece.len=1;
-     if (debug) {
-      System.out.printf("+File pos=%x%n",Integer.valueOf(filePos));
-     }
      piece.width=get4(in);
      piece.height=get4(in);
      piece.element=in.read();
      filePos+=9;
-     if (debug) {
-      System.out.printf("+File pos=%x%n",Integer.valueOf(filePos));
-     }
      if (piece.element>elementCount) {
       elementCount=piece.element;
       final String module=getAscii0(in);
       filePos+=module.length()+1; // 0 terminated string
       final String procedure=getAscii0(in);
       filePos+=procedure.length()+1; // 0 terminated string
-      if (debug) {
-       System.out.printf("-File pos=%x%n",Integer.valueOf(filePos));
-      }
       elementMap.put(Integer.valueOf(piece.element),module+"."+procedure);
      }
      final byte[] buf=new byte[elementDataLength];
      assert in.read(buf)==elementDataLength;
      piece.elementData=buf;
      filePos+=elementDataLength;
-     if (debug) {
-      System.out.printf("-File pos=%x%n",Integer.valueOf(filePos));
-     }
     }
     pos+=piece.len;
     pieceList.add(piece);
-    if (debug) {
-     System.out.printf("*File pos=%x%n",Integer.valueOf(filePos));
-    }
     fontNumber=in.read();
     filePos+=1;
-   }
-   if (debug) {
-    System.out.printf("EOH File pos=%x%n",Integer.valueOf(filePos));
    }
    out.println("<text headerLength='"+headLen+"'>");
    for (final Entry<Integer,String> font:fontMap.entrySet()) {
@@ -315,9 +285,6 @@ public class OberonFilter
     if (filePos<piece.pos) {
      in.skip(piece.pos-filePos);
      filePos=piece.pos;
-     if (debug) {
-      System.out.printf("File pos=%x%n",Integer.valueOf(filePos));
-     }
     }
     final StringBuilder common=new StringBuilder();
     common.append("length='").append(piece.len).append("'");
@@ -331,16 +298,9 @@ public class OberonFilter
        +"' height='"+piece.height+"' "+common+">"
        +OberonFilter.bytesToHex(piece.elementData)+"</piece>");
     } else {
-     if (debug) {
-      System.out.printf("File pos=%x+%x%n",Integer.valueOf(filePos),
-        Integer.valueOf(piece.len));
-     }
      final String text=
        OberonFilter.getAscii(in,piece.len).replaceAll("\r","\n");
      filePos+=text.length();
-     if (debug) {
-      System.out.printf("File pos=%x%n",Integer.valueOf(filePos));
-     }
      out.println(" <piece "+common+">"+escaper.translate(text)+"</piece>");
     }
    }
@@ -363,7 +323,7 @@ public class OberonFilter
   for (final String arg:args) {
    if (arg.startsWith("-n")) {
     nopos=true;
-   } else if (arg.startsWith("-t")) {
+   } else if (arg.startsWith("-p")) {
     textOnly=true;
    } else {
     usage=true;
