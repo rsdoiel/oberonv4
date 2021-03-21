@@ -36,7 +36,7 @@ The following software is available in source code from our department. All modu
 + [StringSearch](StringSearch.Cod) implements some popular string search algorithms ([CS](mailto:steindl@ssw.uni-linz.ac.at).
 + [ToDo](ToDo.Cod) helps to schedule activities and meet deadlines ([HM](mailto:moessenboeck@ssw.uni-linz.ac.at).
 + [Trace](Trace.Cod) provides a list of trace switches that can be set/reset with commands ([HM](mailto:moessenboeck@ssw.uni-linz.ac.at).
- +[VCS](VCS.Cod) is a version control system for text files ([HM](mailto:moessenboeck@ssw.uni-linz.ac.at).
++ [VCS](VCS.Cod) is a version control system for text files ([HM](mailto:moessenboeck@ssw.uni-linz.ac.at).
 + [Xref](Xref.Cod) generates a cross reference list for Oberon-2 programs ([HM](mailto:moessenboeck@ssw.uni-linz.ac.at).
 
 ### Utility Modules
@@ -77,7 +77,7 @@ For a documentation of the text elements click [Elem.Guide](Elem.Guide.Cod)h[her
 
 ### Documentation
 
-+[Prog.Guide.Text](Prog.Guide.Cod) is an Oberon hypertext document that shows examples of many frequent programming tasks under Oberon.
++ [Prog.Guide.Text](Prog.Guide.Cod) is an Oberon hypertext document that shows examples of many frequent programming tasks under Oberon.
 + [Elem.Guide.Text](Elem.Guide.Cod) is an Oberon document that explains how to use text elements.
 + [Balloon.Text](Balloon.Cod) is the global dictionary used by BalloonElems. It contains short descriptions of most types and procedures of the Oberon system. Might be worth studying also without BalloonElems.
 + [Reference Card](Reference.ps). This postscript document is a reference card with the most frequently used commands of the Oberon system.
