@@ -24,7 +24,7 @@ The following software is available in source code from our department. All modu
 
 + [Coco/R](Coco.Cod) generates a scanner and a recursive descent parser from an attributed grammar.
 + [Dialogs](DFiles) A graphical user interface for Oberon V4 [MK](mailto:knasmueller@ssw.uni-linz.ac.at)
-+ [Kepler](Kepler.Cod) > An object oriented graphics editor
++ [Kepler](Kepler.Cod) An object oriented graphics editor
 + [FileManager](FileManager.Cod) A graphically oriented file manager
 + [FTP](FTP.Cod) A graphically oriented ftp client (requires [FileManager](FileManager.Cod)
 + [ODBC](ODBC.Cod) A package for accessing ODBC databases from Oberon programs ([CS](mailto:steindl@ssw.uni-linz.ac.at)).
