@@ -71,8 +71,8 @@ For a documentation of the text elements click [Elem.Guide](Elem.Guide.Cod)h[her
 
 ### Miscellaneous Examples
 
-+[CrazyFiller](CrazyFiller.Cod) draws a Mandelbrot set into the filler viewer ([CS](mailto:steindl@ssw.uni-linz.ac.at).
-+[TravelingSalesman](TravelingSalesman.Cod) a solution for this problem ([MK]("mailto:knasmueller@ssw.uni-linz.ac.at).
++ [CrazyFiller](CrazyFiller.Cod) draws a Mandelbrot set into the filler viewer ([CS](mailto:steindl@ssw.uni-linz.ac.at).
++ [TravelingSalesman](TravelingSalesman.Cod) a solution for this problem ([MK]("mailto:knasmueller@ssw.uni-linz.ac.at).
 + [Calendar](Calendar.Cod) a calendar showing a year with its weeks ([mah](mailto:hof@ssw.uni-linz.ac.at).
 
 ### Documentation
