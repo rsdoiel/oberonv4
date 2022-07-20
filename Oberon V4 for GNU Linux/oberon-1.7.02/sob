@@ -1,20 +1,25 @@
 #!/bin/bash
 
-# change the line below if you have installed oberon to a different
-# directory
+# change the line below if you have installed oberon to a different directory
+# 
 export OBROOT=/usr/local/oberon
+#export OBROOT=~bernhard/oberon-1.7.02
+ 
+export OBSYMLINKED=""
 
-for f in `find $OBROOT -type d -maxdepth 1 -mindepth 1`;  do  
-  rm `basename $f`
+for f in `find $OBROOT -maxdepth 1 -mindepth 1 -type d`;  do  
+  rm `basename $f` 2> /dev/null
   if ! test -e `basename $f` ; then
 	  ln -s $f `basename $f` 2> /dev/null
+	  OBSYMLINKED="`basename $f` $OBLINKED"
   fi
 done
-rm root
+rm root 2> /dev/null
 ln -s $OBROOT root 2> /dev/null
+OBSYMLINKED="root  $OBLINKED"
 OBERON="./:`find $OBROOT -type d | tr "\12" :`"
 export OBERON
 xset +fp $OBROOT/xfonts
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$OBROOT
 $OBROOT/oberon $1 $2 $3 $4 $5
-
+rm $OBSYMLINKED
