@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# change the line below if you have installed oberon to a different
+# directory
+export OBROOT=/usr/local/oberon
+
+for f in `find $OBROOT -type d -maxdepth 1 -mindepth 1`;  do  
+  rm `basename $f`
+  if ! test -e `basename $f` ; then
+	  ln -s $f `basename $f` 2> /dev/null
+  fi
+done
+rm root
+ln -s $OBROOT root 2> /dev/null
+OBERON="./:`find $OBROOT -type d | tr "\12" :`"
+export OBERON
+xset +fp $OBROOT/xfonts
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$OBROOT
+$OBROOT/oberon $1 $2 $3 $4 $5
+

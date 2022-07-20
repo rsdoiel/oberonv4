@@ -1,0 +1,141 @@
+Requirements for Oberon for Linux
+=================================
+
+o A Linux - System running ELF. glibc2 or higher required.
+
+o XWindow, Release 11
+
+o Your Linux System should have 4 MB of extra Memory available to run properly.
+
+o If you have a Monochrome Monitor only, POPUP - Elems will appear black the 
+  first time you start Oberon. Open PopupElems.Mod, Display.Mod and
+  BalloonElems.Mod and click on the Version Element < using the middle mouse
+  button. A Popup will appear - but it'll be black. Choose the second entry
+  from the Popup and the Version element will change from < Color > to 
+  < Monochrome >. Recompile it by marking the viewer (F1) and using the
+  command Folds.Compile *. Exit and restart oberon.
+
+o For proper support of Pictures a TrueColor or DirectColor XServer is
+  recommended.
+
+To install Oberon for Linux
+===========================
+
+0. If you habe downloaded a .rpm Version just type 
+
+        rpm -i oberon-<version>.rpm 
+
+   then create a personal oberon working directory
+
+       mkdir $HOME/oberon
+
+   cd into it
+
+       cd $HOME/oberon
+
+   and start oberon by executing the sob - skript
+
+       sob
+
+-------- Everything below this line is for .tar.gz Installation only --------
+1. Change to the directory where you want to install oberon to. (/usr/local/ 
+   is recommended)
+
+	cd /usr/local
+
+2. Un-tar the oberon-package
+	
+	tar zxvf oberon-<version>.tar.gz
+
+   This will create a new directory called oberon. If you have old versions
+   installed that you want to keep move them into another place before
+   extracting.
+
+3.a Extend the X Fontpath
+
+   I have found that in some cases it may be neccessary to re-run mkfontdir
+and/or to zip the fonts.
+	
+	cd /usr/local/oberon/xfonts
+	rm fonts.dir
+	gzip fonts.dir
+	mkfontdir .
+	xset +fp /usr/local/oberon/xfonts ; xset fp rehash
+
+
+3.b Use alternative Fonts (optional)
+
+  If you are unable to install Fonts for your X-Server you can edit the file 
+  Text/Font.Map in order to map Oberon font names to standard XWindow font names.
+  The file Text/Font.Map provides examples as well as mapping the formerly
+  used syntax font to the free Oberon font now used. 
+  To check which fonts are installed on your system use xfontsel
+
+4. Install Printer fonts (optional)
+
+  If you want to print files from oberon you have to map printer fonts by
+  editing File.Map. In particular you have to give the Oberon font name, the 
+  corresponding Postscript font name and the .AFM (Adobe font metric) files for 
+  regular, oblique and bold typeface of the Postscript font.
+  You can find these .AFM metrics in the ghostscript package. 
+  Common directories for .AFM - Files are /usr/lib/ghostscript/fonts and
+  /usr/share/ghostscript/fonts/.
+
+5. Set environment
+
+  As of 1.5.01 you no longer have to set OBROOT to run oberon from
+  /usr/local/oberon.
+  Only if you decided to install oberon to a different locations or want to 
+  run multiple versions of oberon you'll have to edit the sob script
+  provided with the installation.
+
+6. Multiuser / Multiproject support
+ 
+  This release supports a multiuser / multiproject environment.
+  Put the shell-script sob (startup oberon, a bash script) into /usr/local/bin
+  or any other place that can be reached by $PATH.
+  Furthermore every user can create one or more directories for his personal
+  Files. 
+
+7. Start oberon
+
+  To start oberon, change into a oberon working directory (e.g. ~/oberon)
+  and execute sob.
+  To provide compatibilty with the Startup-Directory (denoted by the dollar -
+  sign under Oberon) links are created that point to the Subdirectories under
+  $OBROOT.
+  If you change $OBROOT be sure to remove that links so they can be
+  reestablished correctly.
+
+8. Hints
+
+  Instead of extending the fontpath everytime you start X, you can also modify
+  your /etc/XF86Config (when using XFree86). 
+  Add /usr/local/oberon<version>/xfonts to the Fonts-section and restart X.
+
+  If you have problems starting oberon (oberon complains about missing fonts)
+  check the File Font.Map (try to rename it if Oberon fonts are installed or 
+  assure that the used fonts are available)
+
+  You can have a link /usr/local/oberon that points to the directory of your
+  latest release so you don't have to change $OBROOT for each new version of
+  oberon.
+ 
+9. Known problems
+
+Check http://sport1.uibk.ac.at/tanis/oberon.linux.bugs.html for a list of 
+currently known bugs.
+
+General information / download: 
+	http://sport1.uibk.ac.at/tanis/oberon.linux.html
+
+Please consider contributing to Oberon for GNU/Linux:
+	http://sport1.uibk.ac.at/tanis/oberon.linux.open.html
+
+If you have troubles / questions concerning setup you can e-mail me:
+tanis@sport1.uibk.ac.at or use the Linux Oberon V4 List:
+majordomo@titania.ssw.uni-linz.ac.at (mail body: subscribe oberonlinux) or
+oberonlinux@titania.ssw.uni-linz.ac.at (to send messages to the list)
+
+	Have fun, 	Robert Lichtenberger
+

@@ -1,0 +1,297 @@
+%!PS-Adobe- minimal conforming
+%%Creator: Oberon
+%%DocumentFonts: Helvetica Helvetica-Bold Helvetica-Oblique Courier Times Times-Bold Times-Oblique
+% 
+% m  moveto  x y -> -
+% s  String  s -> -
+% l  Line  x y w h -> -
+% x  XLine  x y dx dy -> -
+% c  scaled Circle  x y a b -> -
+% b  shaded box  x y w h col -> -
+% i  pattern image  x y w h mode  -> -
+% p  Page  n -> -
+% f  font setting  fntname -> -
+% z Bezier cubic section  x1 y1 x2 y2 x3 y3 x0 y0 -> -
+% u UseColor  r g b -> -
+
+/bdef {bind def} bind def
+
+/m {moveto} bdef
+
+/s {show} bdef
+
+/u {setrgbcolor} bdef
+
+/l {
+  /ph exch def
+  /pw exch def
+  newpath
+  moveto
+  pw 0 rlineto
+  0 ph rlineto
+  pw neg 0 rlineto
+  closepath
+  fill
+} bdef
+
+/x {
+  /dy exch def
+  /dx exch def
+  newpath
+  moveto
+  dx dy rlineto
+  0 setlinewidth	% was 0 (JS)
+  stroke
+} bdef
+
+/c {
+  /pb exch def
+  /pa exch def
+  newpath
+  gsave
+  translate
+  1 pb pa div scale
+  0 0 pa 0 360 arc
+  0 setlinewidth % was 0 (JS)
+  stroke
+  grestore
+} bdef
+
+/shade {
+  gsave
+  col 0 eq {1 setgray} if
+  col 1 eq {0.99 setgray} if
+  col 2 eq {0.9 setgray} if
+  col 3 eq {0.65 setgray} if
+  col 4 eq {0.35 setgray} if
+  col 5 eq {0 setgray} if
+  fill
+  grestore
+} bdef
+
+/max {
+  /h1 exch def
+  /h2 exch def
+  h1 h2 lt {h2} {h1} ifelse
+} bdef
+
+/texture {
+  gsave
+  clip
+  newpath
+  col 6 eq
+    { px 20 idiv 20 mul py ph add 20 idiv 20 mul moveto
+      /maxwh pw ph max 20 add def
+      maxwh 10 idiv 1 add
+        { maxwh maxwh rlineto
+          maxwh neg dup 20 sub rmoveto
+        } repeat
+    } if
+  col 7 eq
+    { px 20 idiv 20 mul py 20 idiv 20 mul moveto
+      /maxwh pw ph max 20 add def
+      maxwh 10 idiv 1 add
+        { maxwh neg maxwh rlineto
+          maxwh 20 add maxwh neg rmoveto
+        } repeat
+    } if
+  col 8 eq
+    { px 15 idiv 15 mul py 15 idiv 15 mul moveto
+      /ph ph 25 add def
+      pw 15 idiv 1 add
+        { 0 ph rlineto
+          15 ph neg rmoveto
+        } repeat
+   } if
+  col 9 eq
+    { px 15 idiv 15 mul py 15 idiv 15 mul moveto
+      /pw pw 15 add def
+      ph 15 idiv 1 add
+       { pw 0 rlineto
+          pw neg 15 rmoveto
+        } repeat
+   } if
+  1 setlinewidth
+  stroke
+  grestore
+} bdef
+
+/b {
+  /col exch def
+  /ph exch def
+  /pw exch def
+  /py exch def
+  /px exch def
+  newpath
+  px py moveto
+  pw 0 rlineto
+  0 ph rlineto
+  pw neg 0 rlineto
+  closepath
+  col 6 lt {shade} {texture} ifelse
+} bdef
+
+/i { % pattern image follows procedure i immediately
+  /mode exch def
+  /ph exch def
+  /pw exch def
+  /py exch def
+  /px exch def
+  /picstr 256 string def
+  /nofbytes pw 7 add 8 idiv ph mul def
+  gsave
+  px py translate
+  pw mode 1 add mul ph mode 1 add mul scale
+  pw ph 1 [pw 0 0 ph 0 0]
+    {nofbytes 256 ge
+      { currentfile picstr readhexstring pop
+        /nofbytes nofbytes 256 sub def }
+      { /picstr nofbytes string def
+        currentfile picstr readhexstring pop
+        /nofbytes 0 def
+      } ifelse
+    } image
+  grestore
+} bdef
+
+/f {findfont setfont} bdef
+
+/z {newpath moveto curveto 0 setlinewidth stroke } bdef    % Bezier cubic section. width was 0 (JS)
+
+/p {/#copies exch def showpage restore save} bdef    % show page for Booklet
+% /p {/#copies exch def} bdef    % show page for Booklet
+
+/pl {gsave 2480 0 translate 90 rotate .7 .7 scale} bdef
+/pr {2506 0 translate} bdef
+/pp {grestore showpage restore save} bdef
+
+% Oberon Encoding, taken from Standard encoding, adapted RLI
+/OEncoding [
+    /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+    /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+    /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+    /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+    /space /exclam /quotedbl /numbersign
+	  /dollar /percent /ampersand /quoteright
+    /parenleft /parenright /asterisk /plus
+	  /comma /hyphen /period /slash
+    /zero /one /two /three
+	  /four /five /six /seven
+    /eight /nine /colon /semicolon
+	  /less /equal /greater /question
+    /at /A /B /C /D /E /F /G
+    /H /I /J /K /L /M /N /O
+    /P /Q /R /S /T /U /V /W
+    /X /Y /Z /bracketleft /backslash /bracketright /asciicircum /underscore
+    /quoteleft /a /b /c /d /e /f /g
+    /h /i /j /k /l /m /n /o
+    /p /q /r /s /t /u /v /w
+    /x /y /z /braceleft /bar /braceright /asciitilde /.notdef
+% \20x
+		/Adieresis /Odieresis /Udieresis /adieresis /odieresis /udieresis
+    /acircumflex /ecircumflex /icircumflex /ocircumflex /ucircumflex
+    /agrave /egrave /igrave /ograve /ugrave
+		/eacute /edieresis /idieresis /ccedilla /aacute /ntilde
+    /.notdef /.notdef
+    /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+% \24x
+    /.notdef /exclamdown /cent /sterling
+	  /fraction /yen /florin /section
+    /currency /quotesingle /quotedblleft /germandbls
+	  /guilsinglleft /guilsinglright /fi /fl
+    /.notdef /endash /dagger /daggerdbl
+	  /periodcentered /.notdef /paragraph /bullet
+    /quotesinglbase /quotedblbase /quotedblright /guillemotright
+	  /ellipsis /perthousand /.notdef /questiondown
+% \30x
+    /.notdef /grave /acute /circumflex /tilde /macron /breve /dotaccent
+    /dieresis /.notdef /ring /cedilla /.notdef /hungarumlaut /ogonek /caron
+    /emdash /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+    /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+% \34x
+    /.notdef /AE /.notdef /ordfeminine /.notdef /.notdef /.notdef /.notdef
+    /Lslash /Oslash /OE /ordmasculine /.notdef /.notdef /.notdef /.notdef
+    /.notdef /ae /.notdef /.notdef /.notdef /dotlessi /.notdef /.notdef
+    /lslash /oslash /oe /germandbls /.notdef /.notdef /.notdef /.notdef
+] def
+
+/OberonInit {
+	systemdict /gcheck known {
+  	mark
+  	/HWResolution [300 300]
+  	counttomark 2 idiv dup dict begin
+  	{def} repeat
+  	pop currentdict
+  	end
+     setpagedevice
+  } if
+  .24 .24 scale % A4
+  % .34 .34 scale % A3
+  % .24 .22 scale % Letter
+  152 18 translate % Pluto portrait
+  % 60 10 translate % UNIX portrait
+  % 10 0 translate % V3 portrait
+  % 2480.3 0 translate 90 rotate 12 106 translate % Pluto landscape
+  % 2480.3 0 translate 90 rotate 7 42 translate % UNIX landscape
+  % 2480.3 0 translate 90 rotate V3 landscape
+  % 3507.9 0 translate 90 rotate 400 -100 translate % SPECIAL CLI
+  (Syntax10.Scn.Fnt) f
+  0 setgray
+} bdef
+
+/OberonClose {
+} bdef
+
+% define 'colorimage' if it isn't defined
+%   ('colortogray' and 'mergeprocs' come from xwd2ps
+%     via xgrab)
+/colorimage where   % do we know about 'colorimage'?
+  { pop }           % yes: pop off the 'dict' returned
+  {                 % no:  define one
+    /colortogray {  % define an RGB->I function
+      /rgbdata exch store    % call input 'rgbdata'
+      rgbdata length 3 idiv
+      /npixls exch store
+      /rgbindx 0 store
+      0 1 npixls 1 sub {
+        grays exch
+        rgbdata rgbindx       get 20 mul    % Red
+        rgbdata rgbindx 1 add get 32 mul    % Green
+        rgbdata rgbindx 2 add get 12 mul    % Blue
+        add add 64 idiv      % I = .5G + .31R + .18B
+        put
+        /rgbindx rgbindx 3 add store
+      } for
+      grays 0 npixls getinterval
+    } bind def
+
+    % Utility procedure for colorimage operator.
+    % This procedure takes two procedures off the
+    % stack and merges them into a single procedure.
+
+    /mergeprocs { % def
+      dup length
+      3 -1 roll
+      dup
+      length
+      dup
+      5 1 roll
+      3 -1 roll
+      add
+      array cvx
+      dup
+      3 -1 roll
+      0 exch
+      putinterval
+      dup
+      4 2 roll
+      putinterval
+    } bind def
+
+    /colorimage { % def
+      pop pop     % remove 'false 3' operands
+      {colortogray} mergeprocs
+      image
+    } bind def
+  } ifelse          % end of 'false' case
+

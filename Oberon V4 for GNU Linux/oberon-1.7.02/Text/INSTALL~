@@ -1,0 +1,110 @@
+Requirements for Oberon for Linux
+=================================
+
+o A Linux - System running ELF.
+
+o XWindow, Release 11
+
+o Your Linux System should have 4 MB of extra Memory available to run properly.
+
+o If you have a Monochrome Monitor only, POPUP - Elems will appear black the 
+  first time you start Oberon. Open PopupElems.Mod, Display.Mod and
+  BalloonElems.Mod and click on the Version Element < using the middle mouse
+  button. A Popup will appear - but it'll be black. Choose the second entry
+  from the Popup and the Version element will change from < Color > to 
+  < Monochrome >. Recompile it by marking the viewer (F1) and using the
+  command Folds.Compile *. Exit and restart oberon.
+
+o For proper support of Pictures a TrueColor or DirectColor XServer is
+  recommended.
+
+To install Oberon for Linux
+===========================
+
+1. Change to the directory where you want to install oberon to. (/usr/local/ 
+   is recommended)
+
+	cd /usr/local
+
+2. Un-tar the oberon-package
+	
+	tar zxvf oberon-<version>.tar.gz
+
+   This will create a new directory called oberon-<version>
+
+3.a Extend the X Fontpath
+   I have found that in some cases it may be neccessary to re-run mkfontdir
+and/or to zip the fonts. So 
+
+	xset +fp /usr/local/oberon/xfonts ; xset fp rehash
+
+
+5.b Use alternative Fonts (optional)
+
+  If you are unable to install Fonts for your X-Server you can edit the file 
+  Font.Map in order to map Oberon font names to standard XWindow font names.
+  The file Font.Map.example provides an example that works on most XServers.
+
+6. Install Printer fonts (optional)
+
+  If you want to print files from oberon you have to map printer fonts by
+  editing File.Map. In particular you have to give the Oberon font name, the 
+  corresponding Postscript font name and the .AFM (Adobe font metric) files for 
+  regular, oblique and bold typeface of the Postscript font.
+  You can find these .AFM metrics in the ghostscript package. 
+  Common directories for .AFM - Files are /usr/lib/ghostscript/fonts and
+  /usr/share/ghostscript/fonts/.
+
+6. Set environment
+
+  You have to set the environment variable $OBROOT to the installation 
+  directory of Oberon. (e.g. /usr/local/oberon).
+  I've put the following into my .cshrch:
+  setenv OBROOT /usr/local/oberon
+  You do not have to set OBERON explicetly anymore, all subdirectories of 
+  $OBROOT, as well as the current working directory are in the search path 
+  of oberon.
+
+7. Multiuser / Multiproject support
+ 
+  The latest release actively supports a multiuser / multiproject environment.
+  Put the shell-script sob (startup oberon, a bash script) into /usr/local/bin
+  or any other place that can be reached by $PATH.
+  Each user that wants to use oberon has to set $OBROOT to the place oberon
+  has been installed to (e.g. /usr/local/oberon)
+  Furthermore every user can create one or more directories for his personal
+  Files. 
+
+8. Start oberon
+
+  To start oberon, change into a oberon working directory (e.g. ~/oberon)
+  and execute sob.
+  To provide compatibilty with the Startup-Directory (denoted by the dollar -
+  sign under Oberon) links are created that point to the Subdirectories under
+  $OBROOT.
+
+9. Hints
+
+  Instead of extending the fontpath everytime you start X, you can also modify
+  your /etc/XF86Config (when using XFree86). 
+  Add /usr/local/oberon/xfonts to the Fonts-section and restart X.
+
+  If you have problems starting oberon (oberon complains about missing fonts)
+  check the File Font.Map (try to rename it if Oberon fonts are installed or 
+  assure that the used fonts are available)
+ 
+ Read Distribution.Text within Oberon for further details.
+
+10. Known problems
+
+Check http://sport1.uibk.ac.at/tanis/oberon.linux.bugs.html for a list of 
+currently known bugs.
+
+If you have troubles / questions concerning setup you can e-mail me:
+tanis@sport1.uibk.ac.at or use the Linux Oberon V4 List:
+majordomo@titania.ssw.uni-linz.ac.at (mail body: subscribe oberonlinux) or
+oberonlinux@titania.ssw.uni-linz.ac.at (to send messages to the list)
+
+	Have fun, 	Robert Lichtenberger
+
+P.S.: Have a look at http://sport1.uibk.ac.at/tanis/oberon.linux.html regularily
