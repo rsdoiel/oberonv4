@@ -30,3 +30,31 @@ for version 1.7.02. I've updated the sob shell script per Bernhard
 as his version contained a couple fixes (see the Git repository
 changes on sob file).
 
+A little history
+----------------
+
+The following was provided by Bernhard Treutwein via email. It is
+an account of how Oberon V4 came to be at SourceForge. RSD - 2022-07-20
+
+> Just for the record: The SF-Project was originally created by Robert
+> Lichtenberger (rli)
+> see also: https://ssw.jku.at/Teaching/Projects/LinuxOberon/
+> 
+> Claudio Nieder had initiated the UV4 project (unified V4) last century,
+> which was dormant on his
+> privat pages (see
+> https://web.archive.org/web/20190329093119/http://claudio.ch:80/V4) and I
+> motivated Claudio to move them to SF.
+> 
+> So the git repo and the Linux distribution on SF were quite different
+> things, although there
+> is some overlap ... I am not sure if it is a good idea to mix the full
+> Linux distribution in the
+> sorted and symlinked attempt to unify the different distributions or if
+> it would be better to have
+> the Linux distribution in a separate repo.
+> 
+> regards
+> --
+>    Bernhard
+> 
