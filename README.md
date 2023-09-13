@@ -34,8 +34,8 @@ changes on sob file).
 ## Notes about archives
 
 
-> Recieved an email from [B. Treutwien](https://github.com/btreut), 08/23/2023, confirmed the nature of the *.Cod files.
-> "*.Cod files are in some sense archives (like *.tar or *.zip), which are in turn uuencoded or binhexed (for people who are accustomed to legacy Unix or Apple systems), i.e. converted to pure ASCII."
+> Recieved an email from [B. Treutwien](https://github.com/btreut), 08/23/2023, confirmed the nature of the `*.Cod` files.
+> `"*.Cod files are in some sense archives (like *.tar or *.zip), which are in turn uuencoded or binhexed (for people who are accustomed to legacy Unix or Apple systems), i.e. converted to pure ASCII."`
 
 For someone who missed the boat on Modula -> Oberon and is trying to play catchup for personal and historical interests this type of information is really helpful.
 
