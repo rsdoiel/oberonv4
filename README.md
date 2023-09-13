@@ -13,7 +13,7 @@ setup this archive.
 1. Import the SourceForge Git repository to GitHub
 2. Add this readme and copying file.
 
-Documentation is still on the web (2022-07-20)
+Documentation is still on the web (2022-07-20, rechecked 2023-09-12)
 
     https://ssw.jku.at/Research/Projects/OberonDownloads.html
 
